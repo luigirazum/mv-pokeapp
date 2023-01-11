@@ -1,4 +1,5 @@
 import PokeData from '../modules/pokeData.js';
+import addeventComment from './display-comment.js';
 
 async function PokemonDisplay() {
   const api = new PokeData();
@@ -17,10 +18,12 @@ async function PokemonDisplay() {
         <p id="types">${pokemon.pokemonTypes}</p>
         <p id="name">${pokemon.name}</p>
         </div>
-        <button id="btnDescription" type="submit"> Description </button>
+        <button id="${pokemon.id}" class="btnDescription" type="submit"> Description </button>
         <button id="btnReserve" type="submit"> reserve </button>
         </div>
         `;
   });
+  addeventComment();
 }
+
 export default PokemonDisplay;

@@ -86,7 +86,7 @@ button {
   font-size: 1.3rem;
 }
 
-#btnDescription {
+.btnDescription {
   margin: 5% 0% 6% 0%;
   background: #49da5e;
 }
