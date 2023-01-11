@@ -1,4 +1,5 @@
 import PokeData from '../modules/pokeData.js';
+import linkReserveBtns from './modules/reserve.js';
 
 async function PokemonDisplay() {
   const api = new PokeData();
@@ -18,9 +19,11 @@ async function PokemonDisplay() {
         <p id="name">${pokemon.name}</p>
         </div>
         <button id="btnDescription" type="submit"> Description </button>
-        <button id="btnReserve" type="submit"> reserve </button>
+        <button class="reservebtn" id="btnReserve" type="submit" data-id="${pokemon.id}"> reserve </button>
         </div>
         `;
   });
+
+  linkReserveBtns();
 }
 export default PokemonDisplay;
