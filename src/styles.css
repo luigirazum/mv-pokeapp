@@ -33,7 +33,6 @@ h1 {
 
 header {
   max-width: 85%;
-  padding: 0.5em auto;
   margin-inline: auto;
   margin-block: 1em;
 }
@@ -70,7 +69,7 @@ a {
 }
 
 a:hover {
-  color: rgb(216, 7, 7);;
+  color: rgb(216, 7, 7);
 }
 
 .logo {
@@ -131,6 +130,7 @@ a:hover {
 }
 
 button {
+  cursor: pointer;
   width: 198px;
   height: 30px;
   border-radius: 10%;
