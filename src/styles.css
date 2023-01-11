@@ -12,6 +12,7 @@
   list-style: none;
   box-sizing: border-box;
   font-family: rubik, sans-serif;
+  line-height: 1;
 }
 
 body {
@@ -28,6 +29,63 @@ h1 {
   border: 3px solid #9191f1;
   padding: 7px 78px;
   border-radius: 18px;
+}
+
+header {
+  max-width: 85%;
+  padding: 0.5em auto;
+  margin-inline: auto;
+  margin-block: 1em;
+}
+
+nav {
+  display: flex;
+  height: 3rem;
+  align-items: center;
+}
+
+nav span {
+  height: 100%;
+  font-weight: 600;
+  font-size: 2rem;
+  letter-spacing: 0.02em;
+  align-items: center;
+  display: flex;
+}
+
+ul {
+  height: 2em;
+  display: flex;
+  gap: 0.5em;
+  align-items: center;
+}
+
+a {
+  display: inline-block;
+  text-decoration: none;
+  color: inherit;
+  font-size: 1.2rem;
+  font-weight: 500;
+  padding: 0.5em 0.8em;
+}
+
+a:hover {
+  color: rgb(216, 7, 7);;
+}
+
+.logo {
+  height: 100%;
+  margin-inline-end: auto;
+}
+
+.logo img {
+  height: 100%;
+  padding: 0.05em;
+  filter: opacity(0.8) grayscale(1);
+}
+
+.logo:hover img {
+  filter: saturate(3);
 }
 
 #displayPokemon {
@@ -70,12 +128,6 @@ h1 {
   width: 124px;
   height: 9px;
   border-radius: 59%;
-}
-
-ul {
-  display: flex;
-  margin: 3% 3% 3% 45%;
-  gap: 150px;
 }
 
 button {
