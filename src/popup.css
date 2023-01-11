@@ -64,11 +64,9 @@
   border-bottom: 1px solid orangered;
 }
 
-
 .display {
   display: block;
 }
-
 
 .d-grid-2col {
   display: grid;
