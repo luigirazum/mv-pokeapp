@@ -15,7 +15,7 @@
 }
 
 body {
-  background: #c9eac3;
+  background: hsl(182deg 100% 50% / 54%);
   color: #1d1d1d;
 }
 
@@ -39,7 +39,7 @@ h1 {
   gap: 40px;
 }
 
-#pokecards {
+.pokecards {
   display: flex;
   flex-direction: column;
   background-color: rgb(216, 7, 7);
@@ -85,6 +85,30 @@ button {
   color: aliceblue;
   font-size: 1.3rem;
 }
+
+.likes{
+  color: aliceblue; ;
+  display: flex;
+  flex-direction: column;
+  margin: 5px 0px 0px auto;
+  gap: 5px;
+  align-items: center;
+}
+
+
+.iconLike{
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  font-size: 1.3rem;
+  color: red;
+}
+
+
+.likeTxt{
+  color: aliceblue;
+}
+
 
 .btnDescription {
   margin: 5% 0% 6% 0%;
