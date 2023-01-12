@@ -241,6 +241,7 @@
 .popup-comment-list {
   list-style-type: none;
   padding: 0 5px;
+  display: block;
 }
 
 .popup-comment-item {
