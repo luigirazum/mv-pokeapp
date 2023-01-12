@@ -19,7 +19,7 @@ const involapiFetchUrl = `${involapiUrl}${involapiApps}`;
 
 // bodyPOST - stringifies the body of the POST
 // :app_id/likes/ - EndPoint to add likes
-const addLike = async (id) => {
+const addLike = (id) => {
   const endPoint = `${involapiFetchUrl}${idApp}/likes/`;
 
   const request = new Request(
@@ -31,19 +31,10 @@ const addLike = async (id) => {
     },
   );
 
-  let result;
-
-  await fetch(request)
-    .then((response) => response.text())
-    .then((text) => {
-      result = text;
-    });
+  const result = fetch(request)
+    .then((response) => response.ok);
 
   return result;
-};
-
-const getLikes = async () => {
-
 };
 
 // GET likes for all items - Array of objects.
