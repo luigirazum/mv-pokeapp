@@ -1,4 +1,5 @@
 import PokeData from '../modules/pokeData.js';
+import linkReserveBtns from './modules/displayreserve.js';
 import addeventComment from './display-comment.js';
 import { addLikes, likesGet } from './displayLikes.js';
 import pokeCounter from './cartsCounter.js';
@@ -25,11 +26,13 @@ async function PokemonDisplay() {
         </p>
         </div>
         <button id="${pokemon.id}" class="btnDescription" type="submit"> Description </button>
-        <button id="btnReserve" type="button"> reserve </button>
+        <button class="reservebtn" id="btnReserve" type="submit" data-id="${pokemon.id}"> reserve </button>
         </div>
         `;
   });
+
   addeventComment();
+  linkReserveBtns();
   addLikes();
   likesGet();
   pokeCounter();
