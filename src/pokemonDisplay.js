@@ -13,8 +13,7 @@ async function PokemonDisplay() {
     displayPokemon.innerHTML += `
         <div class="pokecards">
         <p id="id">${pokemon.id}</p>
-        <div class="cir"></div>
-        <p id="name">${pokemon.name}</p>  
+        <p id="name">${pokemon.name}</p>
         <div class="imgContainer">
         <img id="image" src="${pokemon.image}" alt="">
         <div class="shadow"></div>

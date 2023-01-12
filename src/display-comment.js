@@ -1,4 +1,4 @@
-import { popup, showPopup } from './popup-comment.js';
+import { popup, showPopup, getComments } from './popup-comment.js';
 
 const buttonPressed = async (e) => {
   const sid = Number(e.target.id);
@@ -15,6 +15,7 @@ const buttonPressed = async (e) => {
         <p class="popup-detail-item">Base Experience : ${pokemons.base_experience}</p>
         <p class="popup-detail-item">Moves : ${pokemons.moves.length}</p> `;
       showPopup(name, image, info);
+      getComments(sid);
       popup.classList.toggle('display');
     });
 };
