@@ -38,7 +38,12 @@ popupImage.id = 'popupImage';
 popupImage.classList = 'popup-image';
 popupImage.src = pokemonImg; /// ////////// for test
 popupImage.alt = 'pokemon';
-popupWindow.appendChild(popupImage);
+
+// div prube
+const div = document.createElement('div');
+div.classList = 'div-container';
+div.appendChild(popupImage);
+popupWindow.appendChild(div);
 
 // popup-image-details
 const popupDetail = document.createElement('div');

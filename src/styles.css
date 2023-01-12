@@ -15,6 +15,23 @@
   line-height: 1;
 }
 
+.nav-header {
+  display: flex;
+  background-color: #49b6da;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+footer {
+  background-color: #f6ff76;
+  margin: 0 auto;
+  padding: 25px;
+  display: flex;
+  height: 91px;
+  width: auto;
+  text-align: center;
+}
+
 body {
   background: hsl(182deg 100% 50% / 54%);
   color: #1d1d1d;
@@ -24,7 +41,7 @@ h1 {
   text-align: center;
   color: orange;
   background: #f6ff76;
-  margin: auto auto;
+  margin: 25px auto;
   width: 481px;
   border: 3px solid #9191f1;
   padding: 7px 78px;
@@ -52,13 +69,6 @@ nav span {
   display: flex;
 }
 
-ul {
-  height: 2em;
-  display: flex;
-  gap: 0.5em;
-  align-items: center;
-}
-
 a {
   display: inline-block;
   text-decoration: none;
@@ -66,6 +76,10 @@ a {
   font-size: 1.2rem;
   font-weight: 500;
   padding: 0.5em 0.8em;
+}
+
+.home-c {
+  font-size: large;
 }
 
 a:hover {
@@ -106,6 +120,33 @@ a:hover {
   border: 4px solid #ff000085;
 }
 
+.pokecards:hover {
+  animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes shake {
+  10%,
+  90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+
+  20%,
+  80% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-1px, 0, 0);
+  }
+
+  40%,
+  60% {
+    transform: translate3d(1px, 0, 0);
+  }
+}
+
 .imgContainer {
   background: linear-gradient(180deg, rgb(173, 237, 255) 0%, rgb(127, 225, 252) 50%, rgb(12, 233, 82) 73%, rgb(18, 126, 2) 88%, rgb(1, 97, 10) 100%);
   width: 223px;
@@ -116,9 +157,36 @@ a:hover {
 }
 
 #image {
-  width: 138px;
-  height: 120px;
+  width: 63%;
+  height: 76%;
   margin: 6% 0% 0% 19%;
+}
+
+#image :hover {
+  animation: 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes shake {
+  10%,
+  90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+
+  20%,
+  80% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-1px, 0, 0);
+  }
+
+  40%,
+  60% {
+    transform: translate3d(1px, 0, 0);
+  }
 }
 
 .shadow {
@@ -127,6 +195,12 @@ a:hover {
   width: 124px;
   height: 9px;
   border-radius: 59%;
+}
+
+ul {
+  display: flex;
+  margin: 3% 0% 4% 14%;
+  gap: 130px;
 }
 
 button {
@@ -165,7 +239,7 @@ button {
 }
 
 #btnReserve {
-  margin: 4px 0 20px 0;
+  margin: 0 0 11px 0;
   background: #49b6da;
 }
 
@@ -173,15 +247,8 @@ button {
   width: 11%;
   border-radius: 42%;
   color: aliceblue;
-  margin: 3px 0 3px 14px;
+  margin: -7px 0 6px 2px;
   align-self: flex-start;
-}
-
-.cir {
-  background-color: #1d1d1d57;
-  width: 6px;
-  height: 1px;
-  margin: -5px 185px 0 0;
 }
 
 #name {
