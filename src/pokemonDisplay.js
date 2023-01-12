@@ -1,8 +1,28 @@
 import PokeData from '../modules/pokeData.js';
 import linkReserveBtns from './modules/displayreserve.js';
 import addeventComment from './display-comment.js';
-import { addLikes, likesGet } from './displayLikes.js';
+import {addLikes, likesGet} from './displayLikes.js';
 import pokeCounter from './cartsCounter.js';
+import './assets/oval.svg';
+import './assets/bug.svg';
+import './assets/dark.svg';
+import './assets/dragon.svg';
+import './assets/electric.svg';
+import './assets/fairy.svg';
+import './assets/fighting.svg';
+import './assets/fire.svg';
+import './assets/flying.svg';
+import './assets/ghost.svg';
+import './assets/grass.svg';
+import './assets/ground.svg';
+import './assets/ice.svg';
+import './assets/normal.svg';
+import './assets/poison.svg';
+import './assets/psychic.svg';
+import './assets/rock.svg';
+import './assets/steel.svg';
+import './assets/water.svg';
+
 
 async function PokemonDisplay() {
   const api = new PokeData();
@@ -13,7 +33,7 @@ async function PokemonDisplay() {
     displayPokemon.innerHTML += `
         <div class="pokecards">
         <p id="id">${pokemon.id}</p>
-        <p id="name">${pokemon.name}</p>
+        <p id="name">${pokemon.name}</p>  
         <div class="imgContainer">
         <img id="image" src="${pokemon.image}" alt="">
         <div class="shadow"></div>
