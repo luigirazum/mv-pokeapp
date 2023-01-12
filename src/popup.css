@@ -95,10 +95,10 @@
   
 .popup-image,
 .popupres-img {
+  width: 100%;
   margin: auto;
   display: block;
   border-radius: 30%;
-  width: 100%;
   border-bottom: 1px solid orangered;
   background-color: orangered;
 }
