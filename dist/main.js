@@ -10,13 +10,33 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./modules/pokeData.js":
+/*!*****************************!*\
+  !*** ./modules/pokeData.js ***!
+  \*****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nclass PokeData {\n    getpokemonInfo = async (idPokemon) => {\n      const dataPokemon = await fetch(`https://pokeapi.co/api/v2/pokemon/${idPokemon}`)\n        .then((response) => response.json());\n      const {\n        id, name, sprites, types,\n      } = dataPokemon;\n      const pokemonTypes = [];\n      types.forEach((element) => {\n        pokemonTypes.push(element.type.name);\n      });\n      const image = sprites.other.dream_world.front_default;\n      return {\n        id, name, pokemonTypes, image,\n      };\n    }\n\n      getpokemons = async (minidPokemon, maxidPokemon) => {\n        const listPokemon = [];\n        let dataList;\n        for (let i = minidPokemon; i <= maxidPokemon; i += 1) {\n          dataList = this.getpokemonInfo(i);\n          listPokemon.push(dataList);\n        }\n        return Promise.all(listPokemon);\n      }\n}\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PokeData);\n\n//# sourceURL=webpack://mv-pokeapp/./modules/pokeData.js?");
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js!./src/popup.css":
+/*!*************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./src/popup.css ***!
+  \*************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/noSourceMaps.js */ \"./node_modules/css-loader/dist/runtime/noSourceMaps.js\");\n/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ \"./node_modules/css-loader/dist/runtime/api.js\");\n/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);\n// Imports\n\n\nvar ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));\n// Module\n___CSS_LOADER_EXPORT___.push([module.id, \".popup {\\n  width: 100%;\\n  height: 100%;\\n  box-sizing: border-box;\\n  top: 0;\\n  padding: 30px 10px;\\n  position: fixed;\\n  background-color: rgba(0, 0, 0, 0.349);\\n  backdrop-filter: blur(3px);\\n  overflow-y: auto;\\n  display: none;\\n}\\n\\n/* scrollbar customization */\\n.popup::-webkit-scrollbar {\\n  width: 7px;\\n}\\n\\n.popup::-webkit-scrollbar-track {\\n  background-color: antiquewhite;\\n  box-shadow: inset 0 0 5px rgb(151, 151, 151);\\n}\\n\\n.popup::-webkit-scrollbar-thumb {\\n  background: orangered;\\n  border-radius: 15px;\\n}\\n\\n.popup::-webkit-scrollbar-thumb:hover {\\n  background: #b30000;\\n}\\n\\n/* *********** */\\n\\n.popup-window {\\n  z-index: 10;\\n  max-width: 600px;\\n  margin: auto;\\n  margin-bottom: 20px;\\n  background-color: white;\\n  padding: 20px;\\n  border-radius: 5px;\\n}\\n\\n.popup-header {\\n  display: flex;\\n  justify-content: space-between;\\n  align-items: center;\\n}\\n\\n.popup-header-text {\\n  color: orangered;\\n  text-transform: capitalize;\\n  font-size: 2rem;\\n}\\n\\n.x-btn {\\n  font-size: 1.5rem;\\n  cursor: pointer;\\n}\\n\\n.popup-image {\\n  width: 100%;\\n  border-bottom: 1px solid orangered;\\n}\\n\\n.display {\\n  display: block;\\n}\\n\\n.d-grid-2col {\\n  display: grid;\\n  grid-template-columns: 1fr;\\n  gap: 10px;\\n}\\n\\n.popup-image-detail {\\n  text-align: center;\\n}\\n\\n.popup-detail-item {\\n  font-size: medium;\\n}\\n\\n@media screen and (min-width: 400px) {\\n  .d-grid-2col {\\n    grid-template-columns: 1fr 1fr;\\n  }\\n}\\n\", \"\"]);\n// Exports\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);\n\n\n//# sourceURL=webpack://mv-pokeapp/./src/popup.css?./node_modules/css-loader/dist/cjs.js");
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/dist/cjs.js!./src/styles.css":
 /*!**************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js!./src/styles.css ***!
   \**************************************************************/
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/noSourceMaps.js */ \"./node_modules/css-loader/dist/runtime/noSourceMaps.js\");\n/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ \"./node_modules/css-loader/dist/runtime/api.js\");\n/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);\n// Imports\n\n\nvar ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));\n___CSS_LOADER_EXPORT___.push([module.id, \"@import url(https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600&display=swap);\"]);\n// Module\n___CSS_LOADER_EXPORT___.push([module.id, \"/* Styles for the PokeAPP */\\n\\n/* font family */\\n\\n/* General resets */\\n*,\\n*::after,\\n*::before {\\n  margin: 0;\\n  padding: 0;\\n  list-style: none;\\n  box-sizing: border-box;\\n}\\n\", \"\"]);\n// Exports\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);\n\n\n//# sourceURL=webpack://mv-pokeapp/./src/styles.css?./node_modules/css-loader/dist/cjs.js");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/noSourceMaps.js */ \"./node_modules/css-loader/dist/runtime/noSourceMaps.js\");\n/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ \"./node_modules/css-loader/dist/runtime/api.js\");\n/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);\n// Imports\n\n\nvar ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));\n___CSS_LOADER_EXPORT___.push([module.id, \"@import url(https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600&display=swap);\"]);\n// Module\n___CSS_LOADER_EXPORT___.push([module.id, \"/* Styles for the PokeAPP */\\n\\n/* font family */\\n\\n/* General resets */\\n*,\\n*::after,\\n*::before {\\n  margin: 0;\\n  padding: 0;\\n  list-style: none;\\n  box-sizing: border-box;\\n  font-family: rubik, sans-serif;\\n}\\n\\nbody {\\n  background: #c9eac3;\\n  color: #1d1d1d;\\n}\\n\\nh1 {\\n  text-align: center;\\n  color: orange;\\n  background: #f6ff76;\\n  margin: auto auto;\\n  width: 481px;\\n  border: 3px solid #9191f1;\\n  padding: 7px 78px;\\n  border-radius: 18px;\\n}\\n\\n#displayPokemon {\\n  width: 90%;\\n  max-width: 1000px;\\n  margin: 40px auto 100px auto;\\n  display: grid;\\n  grid-template-columns: repeat(3, 1fr);\\n  gap: 40px;\\n}\\n\\n#pokecards {\\n  display: flex;\\n  flex-direction: column;\\n  background-color: rgb(216, 7, 7);\\n  align-items: center;\\n  padding: 17px;\\n  border-radius: 14px;\\n  border: 4px solid #ff000085;\\n}\\n\\n.imgContainer {\\n  background: linear-gradient(180deg, rgb(173, 237, 255) 0%, rgb(127, 225, 252) 50%, rgb(12, 233, 82) 73%, rgb(18, 126, 2) 88%, rgb(1, 97, 10) 100%);\\n  width: 223px;\\n  height: 155px;\\n  margin: 3% 0% 2% 0%;\\n  border-radius: 4px;\\n  border: 3px solid white;\\n}\\n\\n#image {\\n  width: 138px;\\n  height: 120px;\\n  margin: 6% 0% 0% 19%;\\n}\\n\\n.shadow {\\n  background-color: #1d1d1d42;\\n  margin: -2% 0% 0% 19%;\\n  width: 124px;\\n  height: 9px;\\n  border-radius: 59%;\\n}\\n\\nul {\\n  display: flex;\\n  margin: 3% 3% 3% 45%;\\n  gap: 150px;\\n}\\n\\nbutton {\\n  width: 198px;\\n  height: 30px;\\n  border-radius: 10%;\\n  color: aliceblue;\\n  font-size: 1.3rem;\\n}\\n\\n.btnDescription {\\n  margin: 5% 0% 6% 0%;\\n  background: #49da5e;\\n}\\n\\n#btnReserve {\\n  margin: 1% 0% 6% 0%;\\n  background: #49b6da;\\n}\\n\\n#id {\\n  width: 11%;\\n  border-radius: 42%;\\n  color: aliceblue;\\n  margin: 3px 0 3px 14px;\\n  align-self: flex-start;\\n}\\n\\n#name {\\n  font-family: Rubik, sans-serif;\\n  color: aliceblue;\\n  font-size: 1.3rem;\\n}\\n\\n#types {\\n  font-family: Rubik, sans-serif;\\n  color: aliceblue;\\n  font-size: 1.3rem;\\n}\\n\\n.footerImg {\\n  display: flex;\\n  gap: 20px;\\n  margin: 7% 0% 7% 0%;\\n}\\n\", \"\"]);\n// Exports\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);\n\n\n//# sourceURL=webpack://mv-pokeapp/./src/styles.css?./node_modules/css-loader/dist/cjs.js");
 
 /***/ }),
 
@@ -37,6 +57,16 @@ eval("\n\n/*\n  MIT License http://www.opensource.org/licenses/mit-license.php\n
 /***/ ((module) => {
 
 eval("\n\nmodule.exports = function (i) {\n  return i[1];\n};\n\n//# sourceURL=webpack://mv-pokeapp/./node_modules/css-loader/dist/runtime/noSourceMaps.js?");
+
+/***/ }),
+
+/***/ "./src/popup.css":
+/*!***********************!*\
+  !*** ./src/popup.css ***!
+  \***********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ \"./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js\");\n/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !../node_modules/style-loader/dist/runtime/styleDomAPI.js */ \"./node_modules/style-loader/dist/runtime/styleDomAPI.js\");\n/* harmony import */ var _node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../node_modules/style-loader/dist/runtime/insertBySelector.js */ \"./node_modules/style-loader/dist/runtime/insertBySelector.js\");\n/* harmony import */ var _node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2__);\n/* harmony import */ var _node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js */ \"./node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js\");\n/* harmony import */ var _node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3__);\n/* harmony import */ var _node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! !../node_modules/style-loader/dist/runtime/insertStyleElement.js */ \"./node_modules/style-loader/dist/runtime/insertStyleElement.js\");\n/* harmony import */ var _node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4__);\n/* harmony import */ var _node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! !../node_modules/style-loader/dist/runtime/styleTagTransform.js */ \"./node_modules/style-loader/dist/runtime/styleTagTransform.js\");\n/* harmony import */ var _node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5__);\n/* harmony import */ var _node_modules_css_loader_dist_cjs_js_popup_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! !!../node_modules/css-loader/dist/cjs.js!./popup.css */ \"./node_modules/css-loader/dist/cjs.js!./src/popup.css\");\n\n      \n      \n      \n      \n      \n      \n      \n      \n      \n\nvar options = {};\n\noptions.styleTagTransform = (_node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5___default());\noptions.setAttributes = (_node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3___default());\n\n      options.insert = _node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2___default().bind(null, \"head\");\n    \noptions.domAPI = (_node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1___default());\noptions.insertStyleElement = (_node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4___default());\n\nvar update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_popup_css__WEBPACK_IMPORTED_MODULE_6__[\"default\"], options);\n\n\n\n\n       /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_popup_css__WEBPACK_IMPORTED_MODULE_6__[\"default\"] && _node_modules_css_loader_dist_cjs_js_popup_css__WEBPACK_IMPORTED_MODULE_6__[\"default\"].locals ? _node_modules_css_loader_dist_cjs_js_popup_css__WEBPACK_IMPORTED_MODULE_6__[\"default\"].locals : undefined);\n\n\n//# sourceURL=webpack://mv-pokeapp/./src/popup.css?");
 
 /***/ }),
 
@@ -110,13 +140,53 @@ eval("\n\n/* istanbul ignore next  */\nfunction styleTagTransform(css, styleElem
 
 /***/ }),
 
+/***/ "./src/display-comment.js":
+/*!********************************!*\
+  !*** ./src/display-comment.js ***!
+  \********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _popup_comment_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./popup-comment.js */ \"./src/popup-comment.js\");\n\n\nconst buttonPressed = async (e) => {\n  const sid = Number(e.target.id);\n  const pokemonUrl = `https://pokeapi.co/api/v2/pokemon/${sid}/`;\n  await fetch(pokemonUrl)\n    .then((response) => response.json())\n    .then((json) => {\n      const pokemons = json;\n      const { name } = pokemons;\n      const image = pokemons.sprites.other.dream_world.front_default;\n      const info = `\n        <p class=\"popup-detail-item\">Height : ${pokemons.height}</p>\n        <p class=\"popup-detail-item\">Weight : ${pokemons.weight}</p>\n        <p class=\"popup-detail-item\">Base Experience : ${pokemons.base_experience}</p>\n        <p class=\"popup-detail-item\">Moves : ${pokemons.moves.length}</p> `;\n      (0,_popup_comment_js__WEBPACK_IMPORTED_MODULE_0__.showPopup)(name, image, info);\n      _popup_comment_js__WEBPACK_IMPORTED_MODULE_0__.popup.classList.toggle('display');\n    });\n};\n\nconst addeventComment = () => {\n  const commentButtons = document.querySelectorAll('.btnDescription');\n  commentButtons.forEach((button) => {\n    button.addEventListener('click', buttonPressed);\n  });\n};\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (addeventComment);\n\n\n//# sourceURL=webpack://mv-pokeapp/./src/display-comment.js?");
+
+/***/ }),
+
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _styles_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./styles.css */ \"./src/styles.css\");\n// Import css styles for our project\n\n\n// API to work: https://pokeapi.co/\n// Involvement API: https://www.notion.so/Involvement-API-869e60b5ad104603aa6db59e08150270\n\n//# sourceURL=webpack://mv-pokeapp/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _styles_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./styles.css */ \"./src/styles.css\");\n/* harmony import */ var _pokemonDisplay_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./pokemonDisplay.js */ \"./src/pokemonDisplay.js\");\n// Import css styles for our project\n\n\n\n(0,_pokemonDisplay_js__WEBPACK_IMPORTED_MODULE_1__[\"default\"])();\n\n// API to work: https://pokeapi.co/\n// Involvement API: https://www.notion.so/Involvement-API-869e60b5ad104603aa6db59e08150270\n\n//# sourceURL=webpack://mv-pokeapp/./src/index.js?");
+
+/***/ }),
+
+/***/ "./src/pokemonDisplay.js":
+/*!*******************************!*\
+  !*** ./src/pokemonDisplay.js ***!
+  \*******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _modules_pokeData_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../modules/pokeData.js */ \"./modules/pokeData.js\");\n/* harmony import */ var _display_comment_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./display-comment.js */ \"./src/display-comment.js\");\n\n\n\nasync function PokemonDisplay() {\n  const api = new _modules_pokeData_js__WEBPACK_IMPORTED_MODULE_0__[\"default\"]();\n  const pokemons = await api.getpokemons(1, 21);\n\n  const displayPokemon = document.getElementById('displayPokemon');\n  pokemons.forEach((pokemon) => {\n    displayPokemon.innerHTML += `\n        <div id=\"pokecards\">\n        <p id=\"id\">${pokemon.id}</p>\n        <div class=\"imgContainer\">\n        <img id=\"image\" src=\"${pokemon.image}\" alt=\"\">\n        <div class=\"shadow\"></div>\n        </div>\n        <div class=\"footerImg\">\n        <p id=\"types\">${pokemon.pokemonTypes}</p>\n        <p id=\"name\">${pokemon.name}</p>\n        </div>\n        <button id=\"${pokemon.id}\" class=\"btnDescription\" type=\"submit\"> Description </button>\n        <button id=\"btnReserve\" type=\"submit\"> reserve </button>\n        </div>\n        `;\n  });\n  (0,_display_comment_js__WEBPACK_IMPORTED_MODULE_1__[\"default\"])();\n}\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PokemonDisplay);\n\n\n//# sourceURL=webpack://mv-pokeapp/./src/pokemonDisplay.js?");
+
+/***/ }),
+
+/***/ "./src/popup-comment.js":
+/*!******************************!*\
+  !*** ./src/popup-comment.js ***!
+  \******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"popup\": () => (/* binding */ popup),\n/* harmony export */   \"showPopup\": () => (/* binding */ showPopup)\n/* harmony export */ });\n/* harmony import */ var _popup_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./popup.css */ \"./src/popup.css\");\n/* harmony import */ var _assets_pokemonImg_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./assets/pokemonImg.png */ \"./src/assets/pokemonImg.png\");\n\n\n\n//  popup\nconst popup = document.createElement('div');\npopup.id = 'popup';\npopup.classList = 'popup';\ndocument.body.appendChild(popup);\n\n// popup-window\nconst popupWindow = document.createElement('div');\npopupWindow.classList = 'popup-window';\npopup.appendChild(popupWindow);\n\n// popup-header\nconst popupHeader = document.createElement('div');\npopupHeader.classList = 'popup-header';\npopupWindow.appendChild(popupHeader);\n\n// popup-header text\nconst popupHeaderText = document.createElement('h2');\npopupHeaderText.id = 'popupHeaderText';\npopupHeaderText.classList = 'popup-header-text';\npopupHeaderText.innerHTML = 'Test'; /// /// for test\npopupHeader.appendChild(popupHeaderText);\n\n// popup-header X-btn\nconst xBtn = document.createElement('p');\nxBtn.id = 'xBtn';\nxBtn.classList = 'x-btn';\nxBtn.innerHTML = 'X';\npopupHeader.appendChild(xBtn);\n\n// popup-image\nconst popupImage = document.createElement('img');\npopupImage.id = 'popupImage';\npopupImage.classList = 'popup-image';\npopupImage.src = _assets_pokemonImg_png__WEBPACK_IMPORTED_MODULE_1__; /// ////////// for test\npopupImage.alt = 'pokemon';\npopupWindow.appendChild(popupImage);\n\n// popup-image-details\nconst popupDetail = document.createElement('div');\npopupDetail.id = 'popupDetail';\npopupDetail.classList = 'popup-image-detail d-grid-2col';\n/// /////////////// for test\npopupDetail.innerHTML = `\n                <p class=\"popup-detail-item\">Color : Green</p>\n                <p class=\"popup-detail-item\">Age : 6 years</p>\n                <p class=\"popup-detail-item\">Power : 132</p>\n                <p class=\"popup-detail-item\">Speed : 42 KM/h</p>\n`;\npopupWindow.appendChild(popupDetail);\n\nxBtn.addEventListener('click', () => {\n  popup.classList.remove('display');\n});\n\nconst showPopup = (name, image, info) => {\n  popupHeaderText.innerHTML = name;\n  popupImage.src = image;\n  popupDetail.innerHTML = info;\n};\n\n\n//# sourceURL=webpack://mv-pokeapp/./src/popup-comment.js?");
+
+/***/ }),
+
+/***/ "./src/assets/pokemonImg.png":
+/*!***********************************!*\
+  !*** ./src/assets/pokemonImg.png ***!
+  \***********************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("module.exports = __webpack_require__.p + \"3349d1c0dbda5babf47e.png\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/pokemonImg.png?");
 
 /***/ })
 
@@ -171,6 +241,18 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _sty
 /******/ 		};
 /******/ 	})();
 /******/ 	
+/******/ 	/* webpack/runtime/global */
+/******/ 	(() => {
+/******/ 		__webpack_require__.g = (function() {
+/******/ 			if (typeof globalThis === 'object') return globalThis;
+/******/ 			try {
+/******/ 				return this || new Function('return this')();
+/******/ 			} catch (e) {
+/******/ 				if (typeof window === 'object') return window;
+/******/ 			}
+/******/ 		})();
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
 /******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
@@ -185,6 +267,26 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _sty
 /******/ 			}
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
 /******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/publicPath */
+/******/ 	(() => {
+/******/ 		var scriptUrl;
+/******/ 		if (__webpack_require__.g.importScripts) scriptUrl = __webpack_require__.g.location + "";
+/******/ 		var document = __webpack_require__.g.document;
+/******/ 		if (!scriptUrl && document) {
+/******/ 			if (document.currentScript)
+/******/ 				scriptUrl = document.currentScript.src
+/******/ 			if (!scriptUrl) {
+/******/ 				var scripts = document.getElementsByTagName("script");
+/******/ 				if(scripts.length) scriptUrl = scripts[scripts.length - 1].src
+/******/ 			}
+/******/ 		}
+/******/ 		// When supporting browsers where an automatic publicPath is not supported you must specify an output.publicPath manually via configuration
+/******/ 		// or pass an empty string ("") and set the __webpack_public_path__ variable from your code to use your own logic.
+/******/ 		if (!scriptUrl) throw new Error("Automatic publicPath is not supported in this browser");
+/******/ 		scriptUrl = scriptUrl.replace(/#.*$/, "").replace(/\?.*$/, "").replace(/\/[^\/]+$/, "/");
+/******/ 		__webpack_require__.p = scriptUrl;
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/nonce */
