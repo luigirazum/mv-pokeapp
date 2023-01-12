@@ -2,7 +2,7 @@
 
 <div align="center">
 
-  <img src="./src/assets/pokeapp_logo.png" alt="logo" width="180"  height="auto" />
+  <img src="./src/assets/images/pokeapp_logo.png" alt="logo" width="180"  height="auto" />
   <br/>
 
   <h3><b>PokeApp</b></h3>
@@ -38,7 +38,7 @@
 *[PokeApp]* a Single Page WebApp (API based) that show information about your favorite Pokemon, you can Like, Comment and even Reserve it for your next tournament.
 <div align="center">
 
-  <img src="./src/assets/pokeapp_wireframe.png" alt="Screenshoot" width="550"  height="auto" />
+  <img src="./src/assets/images/pokeapp_wireframe.png" alt="Screenshoot" width="550"  height="auto" />
   <br/>
 
 </div>
