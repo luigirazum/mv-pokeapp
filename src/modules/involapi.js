@@ -17,7 +17,63 @@ const idApp = '0CG34aiKZpxDXV0UfZ4U';
 const involapiApps = 'apps/';
 const involapiFetchUrl = `${involapiUrl}${involapiApps}`;
 
-// bodyPOST - stringifies the body of the POST
+// RESERVATIONS
+// :app_id/reservations/
+//  GET retrieve the reservations for a Pokemon
+//     /apps/:app_id/reservations?item_id=item1
+//   result:
+//     Array of objects
+const getReserves = (itemId) => {
+  const endPoint = `${involapiFetchUrl}${idApp}/reservations/?item_id=${itemId}`;
+
+  const request = new Request(endPoint);
+
+  const result = fetch(request)
+    .then((response) => {
+      if (response.status !== 201) {
+        return response.text();
+      }
+
+      return response.json();
+    })
+    .catch((error) => typeof error);
+
+  return result;
+};
+
+// POST new reservation
+const addReserve = (reserve) => {
+  const endPoint = `${involapiFetchUrl}${idApp}/reservations/`;
+
+  const request = new Request(
+    endPoint,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(
+        {
+          item_id: reserve.item_id,
+          username: reserve.username,
+          date_start: reserve.date_start,
+          date_end: reserve.date_end,
+        },
+      ),
+    },
+  );
+
+  const result = fetch(request)
+    .then((response) => {
+      if (response.status !== 201) {
+        return response.text();
+      }
+
+      return response.json();
+    })
+    .catch((error) => typeof error);
+
+  return result;
+};
+
 // :app_id/likes/ - EndPoint to add likes
 const addLike = (id) => {
   const endPoint = `${involapiFetchUrl}${idApp}/likes/`;
@@ -37,13 +93,7 @@ const addLike = (id) => {
   return result;
 };
 
-// GET likes for all items - Array of objects.
-
-// :app_id/reservations/
-//  GET retrieve the reservations for
-//     /apps/abc234/reservations?item_id=item1
-// POST new reservation
-
+// GET and ID for our App
 const getAppID = async () => {
   const data = await fetch(`${involapiFetchUrl}`,
     { method: 'POST' })
@@ -52,5 +102,6 @@ const getAppID = async () => {
   return data; // the appID
 };
 
-export { addLike as default };
-export { getAppID };
+export { getAppID as default };
+export { addLike };
+export { getReserves, addReserve };
