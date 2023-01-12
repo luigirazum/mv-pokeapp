@@ -1,8 +1,7 @@
 import PokeData from '../modules/pokeData.js';
 import addeventComment from './display-comment.js';
-import {addLikes, likesGet} from './displayLikes.js';
+import { addLikes, likesGet } from './displayLikes.js';
 import pokeCounter from './cartsCounter.js';
-
 
 async function PokemonDisplay() {
   const api = new PokeData();

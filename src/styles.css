@@ -86,17 +86,16 @@ button {
   font-size: 1.3rem;
 }
 
-.likes{
-  color: aliceblue; ;
+.likes {
+  color: aliceblue;
   display: flex;
   flex-direction: column;
-  margin: 5px 0px 0px auto;
+  margin: 5px 0 0 auto;
   gap: 5px;
   align-items: center;
 }
 
-
-.iconLike{
+.iconLike {
   width: 30px;
   height: 30px;
   border-radius: 50%;
@@ -104,11 +103,9 @@ button {
   color: red;
 }
 
-
-.likeTxt{
+.likeTxt {
   color: aliceblue;
 }
-
 
 .btnDescription {
   margin: 10% 0% 10% 0%;
@@ -116,7 +113,7 @@ button {
 }
 
 #btnReserve {
-  margin: 4px 0px 20px 0px;
+  margin: 4px 0 20px 0;
   background: #49b6da;
 }
 
@@ -127,11 +124,12 @@ button {
   margin: 3px 0 3px 14px;
   align-self: flex-start;
 }
+
 .cir {
   background-color: #1d1d1d57;
   width: 6px;
   height: 1px;
-  margin: -5px 185px 0px 0px;
+  margin: -5px 185px 0 0;
 }
 
 #name {
@@ -141,7 +139,6 @@ button {
   padding: 2px;
   margin: 3% 0% 5% 0%;
   width: 121px;
-  text-align: center;
   text-align: center;
   font-family: Rubik, sans-serif;
   color: aliceblue;
@@ -157,7 +154,6 @@ button {
 .footerImg {
   display: flex;
   gap: 38px;
-  margin: 10px 0px 10px 0px;
+  margin: 10px 0 10px 0;
   align-items: center;
 }
-
