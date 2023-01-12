@@ -1,5 +1,5 @@
 import PokeData from '../modules/pokeData.js';
-import linkReserveBtns from './modules/reserve.js';
+import linkReserveBtns from './modules/displayreserve.js';
 import addeventComment from './display-comment.js';
 import { addLikes, likesGet } from './displayLikes.js';
 import pokeCounter from './cartsCounter.js';
