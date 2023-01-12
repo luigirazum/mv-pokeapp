@@ -85,13 +85,13 @@
   padding: 0.2em 0.35em;
   color: #b30000;
 }
-  
+
 #xpopupres:hover {
   border-color: #3a3a3a;
   background-color: #7c7c7c;
   color: #fff;
 }
-  
+
 .popup-image,
 .popupres-img {
   width: 100%;

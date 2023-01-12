@@ -62,9 +62,9 @@ const addFakeReserves = async (id) => {
     date_end: endDates[2],
   };
 
-  await addReserve(res0).then(console.log);
-  await addReserve(res1).then(console.log);
-  await addReserve(res2).then(console.log);
+  await addReserve(res0);
+  await addReserve(res1);
+  await addReserve(res2);
 };
 
 const getReservesList = (reserves) => {
