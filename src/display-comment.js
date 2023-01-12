@@ -1,4 +1,6 @@
-import { popup, showPopup, getComments, getCommentID } from './popup-comment.js';
+import {
+  popup, showPopup, getComments, getCommentID,
+} from './popup-comment.js';
 
 const buttonPressed = async (e) => {
   const sid = Number(e.target.id);

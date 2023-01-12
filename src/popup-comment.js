@@ -120,65 +120,63 @@ popupCommentBtn.classList = 'popup-comment-btn';
 popupCommentBtn.innerHTML = 'Comment';
 popupNewComment.appendChild(popupCommentBtn);
 
-
 /// get comments
 export const getComments = async (itemId) => {
-    const commentsAPI = `${involvementApi}/comments?item_id=${itemId}`;
-    await fetch(commentsAPI).then((response) => response.json()).then((json) => {
-        if (json.length === undefined) {
-            popupCommentHeader.innerHTML = 'Comments (0)';
-            popupCommentList.innerHTML = '';
-        } else {
-            popupCommentList.innerHTML = '';
-            json.forEach((element) => {
-            const newComment = document.createElement('li');
-            newComment.classList = 'popup-comment-item';
-            newComment.innerHTML = ` 
+  const commentsAPI = `${involvementApi}/comments?item_id=${itemId}`;
+  await fetch(commentsAPI).then((response) => response.json()).then((json) => {
+    if (json.length === undefined) {
+      popupCommentHeader.innerHTML = 'Comments (0)';
+      popupCommentList.innerHTML = '';
+    } else {
+      popupCommentList.innerHTML = '';
+      json.forEach((element) => {
+        const newComment = document.createElement('li');
+        newComment.classList = 'popup-comment-item';
+        newComment.innerHTML = ` 
                 <label class="popup-comment-author">${element.username}</label>
                 <p class="popup-comment-text">${element.comment}</p>
                 <p class="popup-comment-date">${element.creation_date}</p>`;
-            popupCommentList.appendChild(newComment);
-            });
-        }
-    }).catch((e) => e);
-    const qtyComments = CounterCheck('popup-comment-item');
-    popupCommentHeader.innerHTML = `Comments (${qtyComments})`;
+        popupCommentList.appendChild(newComment);
+      });
+    }
+  }).catch((e) => e);
+  const qtyComments = CounterCheck('popup-comment-item');
+  popupCommentHeader.innerHTML = `Comments (${qtyComments})`;
 };
-  
-  //  add new comment
-  
+
+//  add new comment
+
 export const addComment = async (itemId) => {
-    const commentsAPI = `${involvementApi}/comments`;
-    const id = itemId;
-    const name = document.getElementById('popupCommentInputName').value;
-    const comment = document.getElementById('popupCommentInputComment').value;
-    if (name === '' || comment === '') return;
-  
-    await fetch(commentsAPI, {
-        method: 'POST',
-        body: JSON.stringify({
-            item_id: id,
-            username: name,
-            comment,
-        }),
-        headers: {
-            'Content-type': 'application/json; charset=UTF-8',
-        },
-    }).then((response) => {
-        getComments(itemId);
-        document.getElementById('popupCommentInputName').value = '';
-        document.getElementById('popupCommentInputComment').value = '';
-        return response.json();
-    }).catch((e) => e);
+  const commentsAPI = `${involvementApi}/comments`;
+  const id = itemId;
+  const name = document.getElementById('popupCommentInputName').value;
+  const comment = document.getElementById('popupCommentInputComment').value;
+  if (name === '' || comment === '') return;
+
+  await fetch(commentsAPI, {
+    method: 'POST',
+    body: JSON.stringify({
+      item_id: id,
+      username: name,
+      comment,
+    }),
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8',
+    },
+  }).then((response) => {
+    getComments(itemId);
+    document.getElementById('popupCommentInputName').value = '';
+    document.getElementById('popupCommentInputComment').value = '';
+    return response.json();
+  }).catch((e) => e);
 };
-  
+
 let commentID = 0;
 export function getCommentID(id) {
-    commentID = id;
+  commentID = id;
 }
-  
+
 // -- comment button eventlistener
 popupCommentBtn.addEventListener('click', () => {
-    addComment(commentID);
+  addComment(commentID);
 });
-  
