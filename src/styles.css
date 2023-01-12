@@ -15,23 +15,22 @@
   line-height: 1;
 }
 
-.nav-header{
+.nav-header {
   display: flex;
   background-color: #49b6da;
   align-items: center;
   justify-content: flex-start;
 }
 
-footer{
+footer {
   background-color: #f6ff76;
-  margin: 0px auto;
+  margin: 0 auto;
   padding: 25px;
   display: flex;
   height: 91px;
   width: auto;
   text-align: center;
 }
-
 
 body {
   background: hsl(182deg 100% 50% / 54%);
@@ -70,13 +69,6 @@ nav span {
   display: flex;
 }
 
-ul {
-  height: 2em;
-  display: flex;
-  gap: 0.5em;
-  align-items: center;
-}
-
 a {
   display: inline-block;
   text-decoration: none;
@@ -86,9 +78,10 @@ a {
   padding: 0.5em 0.8em;
 }
 
-.home-c{
+.home-c {
   font-size: large;
 }
+
 a:hover {
   color: rgb(216, 7, 7);
 }
@@ -210,13 +203,6 @@ ul {
   gap: 130px;
 }
 
-
-ul li a{
-  color: aliceblue;
-  display: flex;
-}
-
-
 button {
   cursor: pointer;
   width: 198px;
@@ -253,7 +239,7 @@ button {
 }
 
 #btnReserve {
-  margin: 0px 0 11px 0;
+  margin: 0 0 11px 0;
   background: #49b6da;
 }
 
@@ -264,7 +250,6 @@ button {
   margin: -7px 0 6px 2px;
   align-self: flex-start;
 }
-
 
 #name {
   background: #faff0080;

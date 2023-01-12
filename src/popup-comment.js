@@ -32,7 +32,6 @@ xBtn.classList = 'x-btn';
 xBtn.innerHTML = 'X';
 popupHeader.appendChild(xBtn);
 
-
 // popup-image
 const popupImage = document.createElement('img');
 popupImage.id = 'popupImage';
@@ -43,7 +42,7 @@ popupImage.alt = 'pokemon';
 // div prube
 const div = document.createElement('div');
 div.classList = 'div-container';
-div.appendChild(popupImage)
+div.appendChild(popupImage);
 popupWindow.appendChild(div);
 
 // popup-image-details

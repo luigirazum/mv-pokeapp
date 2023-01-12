@@ -1,7 +1,7 @@
 import PokeData from '../modules/pokeData.js';
 import linkReserveBtns from './modules/displayreserve.js';
 import addeventComment from './display-comment.js';
-import {addLikes, likesGet} from './displayLikes.js';
+import { addLikes, likesGet } from './displayLikes.js';
 import pokeCounter from './cartsCounter.js';
 import './assets/oval.svg';
 import './assets/bug.svg';
@@ -22,7 +22,6 @@ import './assets/psychic.svg';
 import './assets/rock.svg';
 import './assets/steel.svg';
 import './assets/water.svg';
-
 
 async function PokemonDisplay() {
   const api = new PokeData();
