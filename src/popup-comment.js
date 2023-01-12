@@ -2,7 +2,6 @@ import './popup.css';
 import pokemonImg from './assets/pokemonImg.png';
 import involvementApi from './baseApis.js';
 
-
 //  popup
 export const popup = document.createElement('div');
 popup.id = 'popup';
@@ -88,23 +87,23 @@ popupCommentRecord.appendChild(popupCommentList);
 
 /// get comments
 export const getComments = async (itemId) => {
-    const commentsAPI = `${involvementApi}/comments?item_id=${itemId}`;
-    await fetch(commentsAPI).then((response) => response.json()).then((json) => {
-      if (json.length === undefined) {
-        popupCommentHeader.innerHTML = 'Comments (0)';
-        popupCommentList.innerHTML = '';
-      } else {
-        popupCommentHeader.innerHTML = `Comments (${json.length})`;
-        popupCommentList.innerHTML = '';
-        json.forEach((element) => {
-          const newComment = document.createElement('li');
-          newComment.classList = 'popup-comment-item';
-          newComment.innerHTML = ` 
+  const commentsAPI = `${involvementApi}/comments?item_id=${itemId}`;
+  await fetch(commentsAPI).then((response) => response.json()).then((json) => {
+    if (json.length === undefined) {
+      popupCommentHeader.innerHTML = 'Comments (0)';
+      popupCommentList.innerHTML = '';
+    } else {
+      popupCommentHeader.innerHTML = `Comments (${json.length})`;
+      popupCommentList.innerHTML = '';
+      json.forEach((element) => {
+        const newComment = document.createElement('li');
+        newComment.classList = 'popup-comment-item';
+        newComment.innerHTML = ` 
               <label class="popup-comment-author">${element.username}</label>
               <p class="popup-comment-text">${element.comment}</p>
               <p class="popup-comment-date">${element.creation_date}</p>`;
-          popupCommentList.appendChild(newComment);
-        });
-      }
-    }).catch((e) => e);
-  };
+        popupCommentList.appendChild(newComment);
+      });
+    }
+  }).catch((e) => e);
+};
