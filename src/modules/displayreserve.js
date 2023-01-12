@@ -73,8 +73,8 @@ const getReservesList = (reserves) => {
   reserves.forEach((reserve) => {
     const reserveTemplate = `
             <li class="popupres-reserveitem">
-              <span class="reserveitem-date">${reserve.date_start.replace('-', '/')}</span>
-              <span class="reserveitem-date">${reserve.date_end.replace('-', '/')}</span>
+              <span class="reserveitem-date">${reserve.date_start.replace(/-/gi, '/')}</span>
+              <span class="reserveitem-date">${reserve.date_end.replace(/-/gi, '/')}</span>
               <span class="reserveitem-username">${reserve.username}</span>
             </li>`;
     allReserves += reserveTemplate;
