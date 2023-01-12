@@ -1,5 +1,6 @@
 import './popup.css';
 import pokemonImg from './assets/pokemonImg.png';
+import involvementApi from './baseApis.js';
 
 //  popup
 export const popup = document.createElement('div');
@@ -60,4 +61,49 @@ export const showPopup = (name, image, info) => {
   popupHeaderText.innerHTML = name;
   popupImage.src = image;
   popupDetail.innerHTML = info;
+};
+
+// popup-comment-header
+const popupCommentHeader = document.createElement('h3');
+popupCommentHeader.classList = 'popup-comment-header';
+popupCommentHeader.innerHTML = 'Comments (0)'; /// /////// for test
+popupWindow.appendChild(popupCommentHeader);
+
+// popup-engage section
+const engage = document.createElement('div');
+engage.classList = 'd-grid-2col';
+popupWindow.appendChild(engage);
+
+// popup-comment-record
+const popupCommentRecord = document.createElement('div');
+popupCommentRecord.classList = 'popup-comment-record';
+engage.appendChild(popupCommentRecord);
+
+// popup-comment-list
+const popupCommentList = document.createElement('ul');
+popupCommentList.id = 'popupCommentList';
+popupCommentList.classList = 'popup-comment-list';
+popupCommentRecord.appendChild(popupCommentList);
+
+/// get comments
+export const getComments = async (itemId) => {
+  const commentsAPI = `${involvementApi}/comments?item_id=${itemId}`;
+  await fetch(commentsAPI).then((response) => response.json()).then((json) => {
+    if (json.length === undefined) {
+      popupCommentHeader.innerHTML = 'Comments (0)';
+      popupCommentList.innerHTML = '';
+    } else {
+      popupCommentHeader.innerHTML = `Comments (${json.length})`;
+      popupCommentList.innerHTML = '';
+      json.forEach((element) => {
+        const newComment = document.createElement('li');
+        newComment.classList = 'popup-comment-item';
+        newComment.innerHTML = ` 
+              <label class="popup-comment-author">${element.username}</label>
+              <p class="popup-comment-text">${element.comment}</p>
+              <p class="popup-comment-date">${element.creation_date}</p>`;
+        popupCommentList.appendChild(newComment);
+      });
+    }
+  }).catch((e) => e);
 };
