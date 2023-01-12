@@ -85,6 +85,36 @@ popupCommentList.id = 'popupCommentList';
 popupCommentList.classList = 'popup-comment-list';
 popupCommentRecord.appendChild(popupCommentList);
 
+// popup-new-comment
+const popupNewComment = document.createElement('div');
+popupNewComment.classList = 'popup-new-comment';
+engage.appendChild(popupNewComment);
+
+// popup-comment-input name
+const popupCommentInputName = document.createElement('input');
+popupCommentInputName.id = 'popupCommentInputName';
+popupCommentInputName.classList = 'popup-comment-input';
+popupCommentInputName.type = 'text';
+popupCommentInputName.placeholder = 'Your name...';
+popupNewComment.appendChild(popupCommentInputName);
+
+// popup-comment-input comment
+const popupCommentInputComment = document.createElement('textarea');
+popupCommentInputComment.id = 'popupCommentInputComment';
+popupCommentInputComment.classList = 'popup-comment-input popup-new-comment-text';
+popupCommentInputComment.cols = '15';
+popupCommentInputComment.rows = '4';
+popupCommentInputComment.placeholder = 'Your Comment...';
+popupNewComment.appendChild(popupCommentInputComment);
+
+// popup-comment-btn
+export const popupCommentBtn = document.createElement('a');
+popupCommentBtn.id = 'popupCommentBtn';
+popupCommentBtn.classList = 'popup-comment-btn';
+popupCommentBtn.innerHTML = 'Comment';
+popupNewComment.appendChild(popupCommentBtn);
+
+
 /// get comments
 export const getComments = async (itemId) => {
   const commentsAPI = `${involvementApi}/comments?item_id=${itemId}`;
@@ -93,7 +123,6 @@ export const getComments = async (itemId) => {
       popupCommentHeader.innerHTML = 'Comments (0)';
       popupCommentList.innerHTML = '';
     } else {
-      popupCommentHeader.innerHTML = `Comments (${json.length})`;
       popupCommentList.innerHTML = '';
       json.forEach((element) => {
         const newComment = document.createElement('li');
@@ -107,3 +136,42 @@ export const getComments = async (itemId) => {
     }
   }).catch((e) => e);
 };
+
+// add new comment
+
+export const addComment = async (itemId) => {
+    const commentsAPI = `${involvementApi}/comments`;
+    const id = itemId;
+    const name = document.getElementById('popupCommentInputName').value;
+    const comment = document.createElementById('popupCommentInputComment').value;
+    if (name === '' ||comment === '') return;
+
+    await fetch (commentsAPI, {
+        method: 'POST',
+        body:JSON.stringify({
+            item_id: id,
+            username: name,
+            comment,
+        }),
+        Headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+        }
+    }).then((response) => {
+        getComments (itemId);
+        document.getElementById('popupCommentInputName').value = '';
+        document.getElementById('popupCommentInputComment').value = '';
+        return response.json();
+    }).catch((e) => e);
+};
+
+let commentID = 0;
+export function getCommentID(id) {
+    commentID = id;
+}
+
+// -- comment button eventlistener
+popupCommentBtn.addEventListener('click', () => {
+    addComment(commentID);
+  });
+  
+
