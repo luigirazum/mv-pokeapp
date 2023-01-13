@@ -196,7 +196,9 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _sty
   \***************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
+
 eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"addFakeReserves\": () => (/* binding */ addFakeReserves),\n/* harmony export */   \"default\": () => (/* binding */ linkReserveBtns)\n/* harmony export */ });\n/* harmony import */ var _pokeapi_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./pokeapi.js */ \"./src/modules/pokeapi.js\");\n/* harmony import */ var _involapi_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./involapi.js */ \"./src/modules/involapi.js\");\n\n\n\n// Global reservePokemon object with pokemon details for the Reservations popup.\n\nconst createPokemon = (values) => {\n  const attString = 'id, name, height, weight, exp, moves, image, description, reserves';\n  const attributes = attString.replace(/\\s/gi, '').split(',');\n\n  const customPokemon = {};\n\n  attributes.forEach((key, index) => {\n    customPokemon[key] = values[index];\n  });\n\n  return customPokemon;\n};\n\nconst createReserve = (id, formData) => {\n  const user = formData.get('username');\n  const dateStart = formData.get('date_start');\n  const dateEnd = formData.get('date_end');\n\n  const customReserve = {\n    item_id: id,\n    username: user,\n    date_start: dateStart,\n    date_end: dateEnd,\n  };\n\n  return customReserve;\n};\n\nconst getReservesList = (reserves) => {\n  let allReserves = '';\n\n  reserves.forEach((reserve) => {\n    const reserveTemplate = `\n            <li class=\"popupres-reserveitem\">\n              <span class=\"reserveitem-date\">${reserve.date_start.replace(/-/gi, '/')}</span>\n              <span class=\"reserveitem-date\">${reserve.date_end.replace(/-/gi, '/')}</span>\n              <span class=\"reserveitem-username\">${reserve.username}</span>\n            </li>`;\n    allReserves += reserveTemplate;\n  });\n\n  return allReserves;\n};\n\nconst addFakeReserves = async (id) => {\n  const users = ['pokeBOT', 'pokeApp', 'pokeDEX'];\n  const startDates = ['2023-01-12', '2023-01-13', '2023-01-15'];\n  const endDates = ['2023-01-18', '2023-01-17', '2023-01-19'];\n\n  const res0 = {\n    item_id: id,\n    username: users[0],\n    date_start: startDates[0],\n    date_end: endDates[0],\n  };\n\n  const res1 = {\n    item_id: id,\n    username: users[1],\n    date_start: startDates[1],\n    date_end: endDates[1],\n  };\n\n  const res2 = {\n    item_id: id,\n    username: users[2],\n    date_start: startDates[2],\n    date_end: endDates[2],\n  };\n\n  await (0,_involapi_js__WEBPACK_IMPORTED_MODULE_1__.addReserve)(res0);\n  await (0,_involapi_js__WEBPACK_IMPORTED_MODULE_1__.addReserve)(res1);\n  await (0,_involapi_js__WEBPACK_IMPORTED_MODULE_1__.addReserve)(res2);\n};\n\nconst refreshReservesList = async (id) => {\n  const reserves = JSON.parse(await (0,_involapi_js__WEBPACK_IMPORTED_MODULE_1__.getReserves)(id));\n  const refreshedReservesList = getReservesList(reserves);\n\n  const reservesList = document.getElementById('popupres-reservelist');\n  reservesList.innerHTML = refreshedReservesList;\n};\n\nconst validReserve = (form, formData) => {\n  const dateStart = new Date(formData.get('date_start'));\n  const dateEnd = new Date(formData.get('date_end'));\n\n  const { elements: { date_start: start } } = form;\n\n  if (dateStart <= dateEnd) {\n    start.setCustomValidity('');\n  } else {\n    start.setCustomValidity('Start date can\\'t be after end date.');\n  }\n\n  return form.checkValidity();\n};\n\nconst addNewReserve = async (e) => {\n  e.preventDefault();\n  const { target: { dataset: { id } }, target: form } = e;\n\n  const formData = new FormData(form);\n\n  if (validReserve(form, formData)) {\n    const newReserve = createReserve(id, formData);\n\n    const result = await (0,_involapi_js__WEBPACK_IMPORTED_MODULE_1__.addReserve)(newReserve);\n\n    if (result) {\n      refreshReservesList(id);\n      form.reset();\n    }\n  } else {\n    form.reportValidity();\n  }\n};\n\nconst linkAddNewReserve = () => {\n  const formNewReserve = document.forms.newreserve;\n\n  formNewReserve.addEventListener('submit', addNewReserve);\n};\n\nconst showReserve = async (id) => {\n  const pokemonDetails = JSON.parse(await (0,_pokeapi_js__WEBPACK_IMPORTED_MODULE_0__[\"default\"])(id));\n  const pokemonDescription = JSON.parse(await (0,_pokeapi_js__WEBPACK_IMPORTED_MODULE_0__.getDescription)(id));\n  const reserves = JSON.parse(await (0,_involapi_js__WEBPACK_IMPORTED_MODULE_1__.getReserves)(id));\n\n  const { descriptions } = pokemonDescription;\n  const englishDescription = descriptions.find((description) => description.language.name === 'en');\n  const { description } = englishDescription;\n  const {\n    name, height, weight, base_experience: exp, moves: { length: moves },\n  } = pokemonDetails;\n  const { sprites: { other: { dream_world: { front_default: image } } } } = pokemonDetails;\n\n  const values = [Number(id), name, height, weight, exp, moves, image, description, reserves];\n\n  const reservePokemon = createPokemon(values);\n\n  return reservePokemon;\n};\n\nconst getReserveTemplate = (pokemon) => {\n  const reserves = getReservesList(pokemon.reserves);\n\n  const template = `\n    <div class=\"popupres-window\">\n      <div class=\"popupres-header\">\n        <h2>${pokemon.id} - ${pokemon.name}</h2>\n        <p id=\"xpopupres\" class=\"x-btn\">X</p>\n      </div>\n      <div class=\"popupres-img\">\n        <img class=\"popupres-image\" src=\"${pokemon.image}\" alt=\"pokemon\" />\n        <p class=\"popupres-description\">${pokemon.description}</p>\n      </div>\n      <div class=\"popupres-info\">\n        <p><b>Height</b><span>${pokemon.height}</span></p>\n        <p><b>Weight</b><span>${pokemon.weight}</span></p>\n        <p><b>Experience</b><span>${pokemon.exp}</span></p>\n        <p><b>Moves</b><span>${pokemon.moves}</span></p>\n      </div>\n      <div class=\"popupres-reserves\">\n        <h3>Reservations (#)</h3>\n        <ul id=\"popupres-reservelist\">\n          ${reserves}\n        </ul>\n      </div>\n      <div class=\"popupres-newreserve\">\n        <h3>Add a reservation</h3>\n        <form id=\"newreserve\" data-id=\"${pokemon.id}\" novalidate>\n          <ul>\n            <li>\n              <input type=\"text\" name=\"username\" placeholder=\"Your name\" required>\n            </li>\n            <li>\n              <input type=\"text\" name=\"date_start\" placeholder=\"Start date\" required\n                onblur=\"(this.type='text')\">\n            </li>\n            <li>\n              <input type=\"text\" name=\"date_end\" placeholder=\"End date\" required\n                onblur=\"(this.type='text')\">\n            </li>\n            <li>\n              <button type=\"submit\">Reserve</button>\n            </li>\n          </ul>\n        </form>\n      </div>\n    </div>`;\n\n  return template;\n};\n\nconst displayReserve = (pokemon) => {\n  const body = document.querySelector('body');\n  const pokemonPopupReserve = getReserveTemplate(pokemon);\n  const div = document.createElement('div');\n  div.classList.add('popupres');\n  div.classList.add('show');\n  div.id = 'popupres';\n\n  div.innerHTML = pokemonPopupReserve;\n\n  body.appendChild(div);\n\n  return pokemon;\n};\n\nconst setInputsAsDate = () => {\n  const setDate = (e) => {\n    e.target.type = 'date';\n    const today = new Date();\n    const minDate = today.toJSON().split('T')[0];\n\n    e.target.min = minDate;\n    e.target.showPicker();\n  };\n\n  const startDate = document.forms.newreserve.elements.date_start;\n  const endDate = document.forms.newreserve.elements.date_end;\n\n  startDate.addEventListener('focus', setDate);\n  endDate.addEventListener('focus', setDate);\n};\n\nconst linkCloseReserveBtn = () => {\n  const closeReserveBtn = document.getElementById('xpopupres');\n\n  closeReserveBtn.addEventListener('click', (e) => {\n    e.preventDefault();\n    const { target: { parentElement: { parentElement: { parentElement: popupres } } } } = e;\n    const { parentNode: body } = popupres;\n\n    body.removeChild(popupres);\n  });\n};\n\nconst linkReserveBtns = () => {\n  const reserveBtns = document.querySelectorAll('.reservebtn');\n\n  reserveBtns.forEach((reserveBtn) => {\n    reserveBtn.addEventListener('click', (e) => {\n      e.preventDefault();\n      const { currentTarget: { dataset: { id } } } = e;\n\n      showReserve(id)\n        .then((popedPokemnon) => displayReserve(popedPokemnon))\n        .then(() => linkCloseReserveBtn())\n        .then(() => setInputsAsDate())\n        .then(() => linkAddNewReserve());\n    });\n  });\n};\n\n\n\n\n//# sourceURL=webpack://mv-pokeapp/./src/modules/displayreserve.js?");
+
 
 /***/ }),
 
@@ -217,6 +219,16 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ getPokemon),\n/* harmony export */   \"getDescription\": () => (/* binding */ getDescription)\n/* harmony export */ });\nconst getPokemon = (id) => {\n  const endPoint = `https://pokeapi.co/api/v2/pokemon/${id}/`;\n\n  const request = new Request(endPoint);\n\n  const result = fetch(request)\n    .then((response) => {\n      if (response.status !== 201) {\n        return response.text();\n      }\n\n      return response.json();\n    })\n    .catch((error) => typeof error);\n\n  return result;\n};\n\nconst getDescription = (id) => {\n  const endPoint = `https://pokeapi.co/api/v2/characteristic/${id}/`;\n\n  const request = new Request(endPoint);\n\n  const result = fetch(request)\n    .then((response) => {\n      if (response.status !== 201) {\n        return response.text();\n      }\n\n      return response.json();\n    })\n    .catch((error) => typeof error);\n\n  return result;\n};\n\n\n\n\n//# sourceURL=webpack://mv-pokeapp/./src/modules/pokeapi.js?");
+
+/***/ }),
+
+/***/ "./src/modules/reservesCounter.js":
+/*!****************************************!*\
+  !*** ./src/modules/reservesCounter.js ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ reservesCounter)\n/* harmony export */ });\nconst reservesCounter = () => {\n  const countAllCurrentReserves = document.querySelectorAll('.popupres-reserveitem');\n\n  return countAllCurrentReserves.length;\n};\n\n\n\n//# sourceURL=webpack://mv-pokeapp/./src/modules/reservesCounter.js?");
 
 /***/ }),
 
@@ -250,6 +262,157 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 
 /***/ }),
 
+
+/***/ "./src/assets/bug.svg":
+/*!****************************!*\
+  !*** ./src/assets/bug.svg ***!
+  \****************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("module.exports = __webpack_require__.p + \"assets/bug.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/bug.svg?");
+
+/***/ }),
+
+/***/ "./src/assets/dark.svg":
+/*!*****************************!*\
+  !*** ./src/assets/dark.svg ***!
+  \*****************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("module.exports = __webpack_require__.p + \"assets/dark.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/dark.svg?");
+
+/***/ }),
+
+/***/ "./src/assets/dragon.svg":
+/*!*******************************!*\
+  !*** ./src/assets/dragon.svg ***!
+  \*******************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("module.exports = __webpack_require__.p + \"assets/dragon.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/dragon.svg?");
+
+/***/ }),
+
+/***/ "./src/assets/electric.svg":
+/*!*********************************!*\
+  !*** ./src/assets/electric.svg ***!
+  \*********************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("module.exports = __webpack_require__.p + \"assets/electric.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/electric.svg?");
+
+/***/ }),
+
+/***/ "./src/assets/fairy.svg":
+/*!******************************!*\
+  !*** ./src/assets/fairy.svg ***!
+  \******************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("module.exports = __webpack_require__.p + \"assets/fairy.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/fairy.svg?");
+
+/***/ }),
+
+/***/ "./src/assets/fighting.svg":
+/*!*********************************!*\
+  !*** ./src/assets/fighting.svg ***!
+  \*********************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("module.exports = __webpack_require__.p + \"assets/fighting.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/fighting.svg?");
+
+/***/ }),
+
+/***/ "./src/assets/fire.svg":
+/*!*****************************!*\
+  !*** ./src/assets/fire.svg ***!
+  \*****************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("module.exports = __webpack_require__.p + \"assets/fire.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/fire.svg?");
+
+/***/ }),
+
+/***/ "./src/assets/flying.svg":
+/*!*******************************!*\
+  !*** ./src/assets/flying.svg ***!
+  \*******************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("module.exports = __webpack_require__.p + \"assets/flying.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/flying.svg?");
+
+/***/ }),
+
+/***/ "./src/assets/ghost.svg":
+/*!******************************!*\
+  !*** ./src/assets/ghost.svg ***!
+  \******************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("module.exports = __webpack_require__.p + \"assets/ghost.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/ghost.svg?");
+
+/***/ }),
+
+/***/ "./src/assets/grass.svg":
+/*!******************************!*\
+  !*** ./src/assets/grass.svg ***!
+  \******************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("module.exports = __webpack_require__.p + \"assets/grass.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/grass.svg?");
+
+/***/ }),
+
+/***/ "./src/assets/ground.svg":
+/*!*******************************!*\
+  !*** ./src/assets/ground.svg ***!
+  \*******************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("module.exports = __webpack_require__.p + \"assets/ground.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/ground.svg?");
+
+/***/ }),
+
+/***/ "./src/assets/ice.svg":
+/*!****************************!*\
+  !*** ./src/assets/ice.svg ***!
+  \****************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("module.exports = __webpack_require__.p + \"assets/ice.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/ice.svg?");
+
+/***/ }),
+
+/***/ "./src/assets/normal.svg":
+/*!*******************************!*\
+  !*** ./src/assets/normal.svg ***!
+  \*******************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("module.exports = __webpack_require__.p + \"assets/normal.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/normal.svg?");
+
+/***/ }),
+
+/***/ "./src/assets/oval.svg":
+/*!*****************************!*\
+  !*** ./src/assets/oval.svg ***!
+  \*****************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("module.exports = __webpack_require__.p + \"assets/oval.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/oval.svg?");
+
+/***/ }),
+
+/***/ "./src/assets/poison.svg":
+/*!*******************************!*\
+  !*** ./src/assets/poison.svg ***!
+  \*******************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("module.exports = __webpack_require__.p + \"assets/poison.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/poison.svg?");
+
+/***/ }),
+
 /***/ "./src/assets/pokemonImg.png":
 /*!***********************************!*\
   !*** ./src/assets/pokemonImg.png ***!
@@ -257,6 +420,46 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 eval("module.exports = __webpack_require__.p + \"assets/pokemonImg.png\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/pokemonImg.png?");
+
+/***/ }),
+
+/***/ "./src/assets/psychic.svg":
+/*!********************************!*\
+  !*** ./src/assets/psychic.svg ***!
+  \********************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("module.exports = __webpack_require__.p + \"assets/psychic.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/psychic.svg?");
+
+/***/ }),
+
+/***/ "./src/assets/rock.svg":
+/*!*****************************!*\
+  !*** ./src/assets/rock.svg ***!
+  \*****************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("module.exports = __webpack_require__.p + \"assets/rock.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/rock.svg?");
+
+/***/ }),
+
+/***/ "./src/assets/steel.svg":
+/*!******************************!*\
+  !*** ./src/assets/steel.svg ***!
+  \******************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("module.exports = __webpack_require__.p + \"assets/steel.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/steel.svg?");
+
+/***/ }),
+
+/***/ "./src/assets/water.svg":
+/*!******************************!*\
+  !*** ./src/assets/water.svg ***!
+  \******************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("module.exports = __webpack_require__.p + \"assets/water.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/water.svg?");
 
 /***/ })
 

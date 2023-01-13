@@ -1,5 +1,6 @@
 import getPokemon, { getDescription } from './pokeapi.js';
 import { addReserve, getReserves } from './involapi.js';
+import reservesCounter from './reservesCounter.js';
 
 // Global reservePokemon object with pokemon details for the Reservations popup.
 
@@ -29,6 +30,16 @@ const createReserve = (id, formData) => {
   };
 
   return customReserve;
+};
+
+const setCountReserves = (count) => {
+  const reservesCount = document.getElementById('reservescount');
+
+  if (count > 0) {
+    reservesCount.innerText = count;
+  } else {
+    reservesCount.parentElement.innerHTML = '<h3>No Reservations</h3>';
+  }
 };
 
 const getReservesList = (reserves) => {
@@ -84,6 +95,7 @@ const refreshReservesList = async (id) => {
 
   const reservesList = document.getElementById('popupres-reservelist');
   reservesList.innerHTML = refreshedReservesList;
+  setCountReserves(reservesCounter());
 };
 
 const validReserve = (form, formData) => {
@@ -113,12 +125,14 @@ const addNewReserve = async (e) => {
     const result = await addReserve(newReserve);
 
     if (result) {
-      refreshReservesList(id);
       form.reset();
+      return refreshReservesList(id);
     }
   } else {
     form.reportValidity();
   }
+
+  return false;
 };
 
 const linkAddNewReserve = () => {
@@ -167,7 +181,7 @@ const getReserveTemplate = (pokemon) => {
         <p><b>Moves</b><span>${pokemon.moves}</span></p>
       </div>
       <div class="popupres-reserves">
-        <h3>Reservations (#)</h3>
+        <h3>Reservations (<span id="reservescount"></span>)</h3>
         <ul id="popupres-reservelist">
           ${reserves}
         </ul>
@@ -254,7 +268,8 @@ const linkReserveBtns = () => {
         .then((popedPokemnon) => displayReserve(popedPokemnon))
         .then(() => linkCloseReserveBtn())
         .then(() => setInputsAsDate())
-        .then(() => linkAddNewReserve());
+        .then(() => linkAddNewReserve())
+        .then(() => setCountReserves(reservesCounter()));
     });
   });
 };
