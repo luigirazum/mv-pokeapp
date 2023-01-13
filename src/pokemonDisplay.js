@@ -3,7 +3,6 @@ import linkReserveBtns from './modules/displayreserve.js';
 import addeventComment from './display-comment.js';
 import { addLikes, likesGet } from './displayLikes.js';
 import pokeCounter from './cartsCounter.js';
-import './assets/oval.svg';
 import './assets/bug.svg';
 import './assets/dark.svg';
 import './assets/dragon.svg';
@@ -23,9 +22,17 @@ import './assets/rock.svg';
 import './assets/steel.svg';
 import './assets/water.svg';
 
+const typeIcon = (types) => {
+  let iconsHtml = '';
+  types.forEach((type) => {
+    iconsHtml += `<div class="habilityIcon"><img class="habilityIconImg" src="./assets/${type}.svg"></div>`;
+  });
+  return iconsHtml;
+};
+
 async function PokemonDisplay() {
   const api = new PokeData();
-  const pokemons = await api.getpokemons(1, 21);
+  const pokemons = await api.getpokemons(1, 30);
 
   const displayPokemon = document.getElementById('displayPokemon');
   pokemons.forEach((pokemon) => {
@@ -38,18 +45,17 @@ async function PokemonDisplay() {
         <div class="shadow"></div>
         </div>
         <div class="footerImg">
-        <p id="types">${pokemon.pokemonTypes}</p>
-        <p class="likes">
+        <div id="types">${typeIcon(pokemon.pokemonTypes)}</div>
+        <p class="likes"> 
         <button class="iconLike" id="heart${pokemon.id}" alt="heart">&#10084;</button>
         <span><span class="likeTxt" id="like${pokemon.id}" > 0 </span> Likes </span>
         </p>
         </div>
         <button id="${pokemon.id}" class="btnDescription" type="submit"> Description </button>
-        <button class="reservebtn" id="btnReserve" type="submit" data-id="${pokemon.id}"> reserve </button>
+        <button class="reservebtn" id="btnReserve" type="submit" data-id="${pokemon.id}"> Reserve </button>
         </div>
         `;
   });
-
   addeventComment();
   linkReserveBtns();
   addLikes();

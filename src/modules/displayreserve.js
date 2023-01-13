@@ -163,7 +163,7 @@ const getReserveTemplate = (pokemon) => {
       <div class="popupres-info">
         <p><b>Height</b><span>${pokemon.height}</span></p>
         <p><b>Weight</b><span>${pokemon.weight}</span></p>
-        <p><b>Base Experience</b><span>${pokemon.exp}</span></p>
+        <p><b>Experience</b><span>${pokemon.exp}</span></p>
         <p><b>Moves</b><span>${pokemon.moves}</span></p>
       </div>
       <div class="popupres-reserves">

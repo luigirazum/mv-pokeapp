@@ -39,7 +39,7 @@
 
 .popup-window,
 .popupres-window {
-  background: linear-gradient(180deg, rgb(225 212 50) 18%, rgb(255 255 255) 71%, hsl(148deg 98% 73%) 95%);
+  background: linear-gradient(180deg, rgb(225 212 50) 18%, rgb(255 255 255) 45%, hsl(148deg 98% 73%) 95%);
   z-index: 10;
   max-width: 500px;
   margin: auto;
@@ -97,25 +97,28 @@
 .div-container {
   padding: 16px;
   border-radius: 50%;
-  background: linear-gradient(180deg, rgb(0, 5, 2) 0%, rgb(5, 85, 30) 50%, rgb(12, 233, 82) 73%, rgb(18, 126, 2) 88%, rgb(1, 97, 10) 100%);
+  background: linear-gradient(180deg, rgb(255 0 0) 0%, rgb(255 5 5) 49%, rgb(0 0 0) 42%, rgb(0 0 0) 53%, rgb(255 255 255) 53%, rgb(255 255 255) 100%);
   width: 100%;
-  vertical-align: middle;
   margin-bottom: 20px;
-  font-weight: bold;
+  border: 1px solid #000000a6;
 }
 
-.popup-image,
-.popupres-img {
+.popup-image {
   width: 328px;
   height: 416px;
   margin: 0 0 0 53px;
 }
 
 .popupres-img {
-  height: 60vh;
+  height: 58vh;
   text-align: center;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
+  background: linear-gradient(180deg, rgb(255 0 0) 0%, rgb(255 5 5) 49%, rgb(0 0 0) 42%, rgb(0 0 0) 53%, rgb(255 255 255) 53%, rgb(255 255 255) 100%);
+  border-radius: 50%;
+  width: 100%;
+  border: 1px solid black;
 }
 
 .popupres-image {
@@ -123,11 +126,12 @@
   padding: 1em 2em;
   align-self: center;
   justify-self: center;
+  width: 100%;
 }
 
 .popupres-description {
   font-weight: 500;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   padding: 0.5em;
   quotes: "“" "”" "‘" "’";
 }
@@ -233,7 +237,7 @@
 
 .popup-comment-header {
   color: rgb(141, 63, 231);
-  margin-bottom: 5px;
+  margin: 15px 0 14px 0;
   text-align: center;
 }
 
@@ -284,6 +288,7 @@
   border: 0;
   outline: 0;
   border-bottom: 1px solid gainsboro;
+  border-radius: 15px;
 }
 
 #newreserve input {
@@ -306,7 +311,7 @@
 
 .popup-comment-btn,
 #newreserve button {
-  padding: 10px 15px;
+  padding: 2px 15px;
   background-color: rgb(141, 63, 231);
   color: white;
   cursor: pointer;
@@ -315,15 +320,6 @@
   align-self: flex-end;
 }
 
-@media screen and (min-width: 400px) {
-  .d-grid-2col {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .popup-image {
-    width: 200px;
-  }
-}
 
 /* Styles for Reservations section */
 .popupres-reserves {
@@ -376,6 +372,7 @@
 }
 
 .popupres-newreserve ul {
+  margin: 0 0 0 0;
   flex-direction: column;
   gap: 0.5em;
 }
