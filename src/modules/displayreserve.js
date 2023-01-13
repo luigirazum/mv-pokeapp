@@ -40,7 +40,11 @@ const countReserves = () => {
 const setCountReserves = (count) => {
   const reservesCount = document.getElementById('reservescount');
 
-  reservesCount.innerText = count;
+  if (count > 0) {
+    reservesCount.innerText = count;
+  } else {
+    reservesCount.parentElement.innerHTML = '<h3>No Reservations</h3>';
+  }
 };
 
 const getReservesList = (reserves) => {
