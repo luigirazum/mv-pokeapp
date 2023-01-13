@@ -16,24 +16,35 @@ const createPokemon = (values) => {
   return customPokemon;
 };
 
-const showReserve = async (id) => {
-  const pokemonDetails = JSON.parse(await getPokemon(id));
-  const pokemonDescription = JSON.parse(await getDescription(id));
-  const reserves = JSON.parse(await getReserves(id));
+const createReserve = (id, formData) => {
+  const user = formData.get('username');
+  const dateStart = formData.get('date_start');
+  const dateEnd = formData.get('date_end');
 
-  const { descriptions } = pokemonDescription;
-  const englishDescription = descriptions.find((description) => description.language.name === 'en');
-  const { description } = englishDescription;
-  const {
-    name, height, weight, base_experience: exp, moves: { length: moves },
-  } = pokemonDetails;
-  const { sprites: { other: { dream_world: { front_default: image } } } } = pokemonDetails;
+  const customReserve = {
+    item_id: id,
+    username: user,
+    date_start: dateStart,
+    date_end: dateEnd,
+  };
 
-  const values = [Number(id), name, height, weight, exp, moves, image, description, reserves];
+  return customReserve;
+};
 
-  const reservePokemon = createPokemon(values);
+const getReservesList = (reserves) => {
+  let allReserves = '';
 
-  return reservePokemon;
+  reserves.forEach((reserve) => {
+    const reserveTemplate = `
+            <li class="popupres-reserveitem">
+              <span class="reserveitem-date">${reserve.date_start.replace(/-/gi, '/')}</span>
+              <span class="reserveitem-date">${reserve.date_end.replace(/-/gi, '/')}</span>
+              <span class="reserveitem-username">${reserve.username}</span>
+            </li>`;
+    allReserves += reserveTemplate;
+  });
+
+  return allReserves;
 };
 
 const addFakeReserves = async (id) => {
@@ -67,20 +78,73 @@ const addFakeReserves = async (id) => {
   await addReserve(res2);
 };
 
-const getReservesList = (reserves) => {
-  let allReserves = '';
+const refreshReservesList = async (id) => {
+  const reserves = JSON.parse(await getReserves(id));
+  const refreshedReservesList = getReservesList(reserves);
 
-  reserves.forEach((reserve) => {
-    const reserveTemplate = `
-            <li class="popupres-reserveitem">
-              <span class="reserveitem-date">${reserve.date_start.replace(/-/gi, '/')}</span>
-              <span class="reserveitem-date">${reserve.date_end.replace(/-/gi, '/')}</span>
-              <span class="reserveitem-username">${reserve.username}</span>
-            </li>`;
-    allReserves += reserveTemplate;
-  });
+  const reservesList = document.getElementById('popupres-reservelist');
+  reservesList.innerHTML = refreshedReservesList;
+};
 
-  return allReserves;
+const validReserve = (form, formData) => {
+  const dateStart = new Date(formData.get('date_start'));
+  const dateEnd = new Date(formData.get('date_end'));
+
+  const { elements: { date_start: start } } = form;
+
+  if (dateStart <= dateEnd) {
+    start.setCustomValidity('');
+  } else {
+    start.setCustomValidity('Start date can\'t be after end date.');
+  }
+
+  return form.checkValidity();
+};
+
+const addNewReserve = async (e) => {
+  e.preventDefault();
+  const { target: { dataset: { id } }, target: form } = e;
+
+  const formData = new FormData(form);
+
+  if (validReserve(form, formData)) {
+    const newReserve = createReserve(id, formData);
+
+    const result = await addReserve(newReserve);
+
+    if (result) {
+      refreshReservesList(id);
+      form.reset();
+    }
+  } else {
+    form.reportValidity();
+  }
+};
+
+const linkAddNewReserve = () => {
+  const formNewReserve = document.forms.newreserve;
+
+  formNewReserve.addEventListener('submit', addNewReserve);
+};
+
+const showReserve = async (id) => {
+  const pokemonDetails = JSON.parse(await getPokemon(id));
+  const pokemonDescription = JSON.parse(await getDescription(id));
+  const reserves = JSON.parse(await getReserves(id));
+
+  const { descriptions } = pokemonDescription;
+  const englishDescription = descriptions.find((description) => description.language.name === 'en');
+  const { description } = englishDescription;
+  const {
+    name, height, weight, base_experience: exp, moves: { length: moves },
+  } = pokemonDetails;
+  const { sprites: { other: { dream_world: { front_default: image } } } } = pokemonDetails;
+
+  const values = [Number(id), name, height, weight, exp, moves, image, description, reserves];
+
+  const reservePokemon = createPokemon(values);
+
+  return reservePokemon;
 };
 
 const getReserveTemplate = (pokemon) => {
@@ -108,6 +172,27 @@ const getReserveTemplate = (pokemon) => {
           ${reserves}
         </ul>
       </div>
+      <div class="popupres-newreserve">
+        <h3>Add a reservation</h3>
+        <form id="newreserve" data-id="${pokemon.id}" novalidate>
+          <ul>
+            <li>
+              <input type="text" name="username" placeholder="Your name" required>
+            </li>
+            <li>
+              <input type="text" name="date_start" placeholder="Start date" required
+                onblur="(this.type='text')">
+            </li>
+            <li>
+              <input type="text" name="date_end" placeholder="End date" required
+                onblur="(this.type='text')">
+            </li>
+            <li>
+              <button type="submit">Reserve</button>
+            </li>
+          </ul>
+        </form>
+      </div>
     </div>`;
 
   return template;
@@ -126,6 +211,23 @@ const displayReserve = (pokemon) => {
   body.appendChild(div);
 
   return pokemon;
+};
+
+const setInputsAsDate = () => {
+  const setDate = (e) => {
+    e.target.type = 'date';
+    const today = new Date();
+    const minDate = today.toJSON().split('T')[0];
+
+    e.target.min = minDate;
+    e.target.showPicker();
+  };
+
+  const startDate = document.forms.newreserve.elements.date_start;
+  const endDate = document.forms.newreserve.elements.date_end;
+
+  startDate.addEventListener('focus', setDate);
+  endDate.addEventListener('focus', setDate);
 };
 
 const linkCloseReserveBtn = () => {
@@ -150,7 +252,9 @@ const linkReserveBtns = () => {
 
       showReserve(id)
         .then((popedPokemnon) => displayReserve(popedPokemnon))
-        .then(() => linkCloseReserveBtn());
+        .then(() => linkCloseReserveBtn())
+        .then(() => setInputsAsDate())
+        .then(() => linkAddNewReserve());
     });
   });
 };

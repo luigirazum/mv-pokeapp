@@ -67,7 +67,7 @@ const addReserve = (reserve) => {
         return response.text();
       }
 
-      return response.json();
+      return response.ok;
     })
     .catch((error) => typeof error);
 

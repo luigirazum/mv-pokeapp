@@ -1,7 +1,7 @@
 import './popup.css';
 import pokemonImg from './assets/pokemonImg.png';
 import involvementApi from './baseApis.js';
-import CounterCheck from './popup-counter';
+import CounterCheck from './popup-counter.js';
 
 //  popup
 export const popup = document.createElement('div');
