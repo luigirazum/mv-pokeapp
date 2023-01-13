@@ -80,7 +80,6 @@ const addFakeReserves = async (id) => {
 
 const refreshReservesList = async (id) => {
   const reserves = JSON.parse(await getReserves(id));
-  console.log(reserves);
   const refreshedReservesList = getReservesList(reserves);
 
   const reservesList = document.getElementById('popupres-reservelist');
