@@ -50,7 +50,6 @@
 }
 
 .popupres-window {
-  height: 90vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -305,4 +304,60 @@
   border-radius: 5px;
   width: fit-content;
   align-self: flex-end;
+}
+
+@media screen and (min-width: 400px) {
+  .d-grid-2col {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .popup-image {
+    width: 200px;
+  }
+}
+
+/* Styles for Reservations section */
+.popupres-reserves {
+  padding: 1em 2em;
+  text-align: center;
+}
+
+.popupres-reserves h3 {
+  color: #b30000;
+}
+
+#popupres-reservelist {
+  padding: 1em 0;
+  height: auto;
+  flex-direction: column;
+  gap: 0;
+}
+
+.popupres-reserveitem {
+  display: flex;
+  align-items: center;
+}
+
+.reserveitem-date,
+.reserveitem-username {
+  font-weight: bold;
+  padding: 0.4em 0 0.4em 0;
+}
+
+.reserveitem-date:nth-child(2) {
+  padding: 0.4em 0.4em 0.4em 0.3em;
+}
+
+.reserveitem-date:nth-child(1)::after,
+.reserveitem-date:nth-child(2)::after {
+  margin-inline: 0.5em 0;
+  font-weight: 400;
+}
+
+.reserveitem-date:nth-child(1)::after {
+  content: "-";
+}
+
+.reserveitem-date:nth-child(2)::after {
+  content: "by";
 }
