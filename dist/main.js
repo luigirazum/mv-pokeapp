@@ -196,7 +196,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _sty
   \***************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"addFakeReserves\": () => (/* binding */ addFakeReserves),\n/* harmony export */   \"default\": () => (/* binding */ linkReserveBtns)\n/* harmony export */ });\n/* harmony import */ var _pokeapi_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./pokeapi.js */ \"./src/modules/pokeapi.js\");\n/* harmony import */ var _involapi_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./involapi.js */ \"./src/modules/involapi.js\");\n\n\n\n// Global reservePokemon object with pokemon details for the Reservations popup.\n\nconst createPokemon = (values) => {\n  const attString = 'id, name, height, weight, exp, moves, image, description, reserves';\n  const attributes = attString.replace(/\\s/gi, '').split(',');\n\n  const customPokemon = {};\n\n  attributes.forEach((key, index) => {\n    customPokemon[key] = values[index];\n  });\n\n  return customPokemon;\n};\n\nconst createReserve = (id, formData) => {\n  const user = formData.get('username');\n  const dateStart = formData.get('date_start');\n  const dateEnd = formData.get('date_end');\n\n  const customReserve = {\n    item_id: id,\n    username: user,\n    date_start: dateStart,\n    date_end: dateEnd,\n  };\n\n  return customReserve;\n};\n\nconst getReservesList = (reserves) => {\n  let allReserves = '';\n\n  reserves.forEach((reserve) => {\n    const reserveTemplate = `\n            <li class=\"popupres-reserveitem\">\n              <span class=\"reserveitem-date\">${reserve.date_start.replace(/-/gi, '/')}</span>\n              <span class=\"reserveitem-date\">${reserve.date_end.replace(/-/gi, '/')}</span>\n              <span class=\"reserveitem-username\">${reserve.username}</span>\n            </li>`;\n    allReserves += reserveTemplate;\n  });\n\n  return allReserves;\n};\n\nconst addFakeReserves = async (id) => {\n  const users = ['pokeBOT', 'pokeApp', 'pokeDEX'];\n  const startDates = ['2023-01-12', '2023-01-13', '2023-01-15'];\n  const endDates = ['2023-01-18', '2023-01-17', '2023-01-19'];\n\n  const res0 = {\n    item_id: id,\n    username: users[0],\n    date_start: startDates[0],\n    date_end: endDates[0],\n  };\n\n  const res1 = {\n    item_id: id,\n    username: users[1],\n    date_start: startDates[1],\n    date_end: endDates[1],\n  };\n\n  const res2 = {\n    item_id: id,\n    username: users[2],\n    date_start: startDates[2],\n    date_end: endDates[2],\n  };\n\n  await (0,_involapi_js__WEBPACK_IMPORTED_MODULE_1__.addReserve)(res0);\n  await (0,_involapi_js__WEBPACK_IMPORTED_MODULE_1__.addReserve)(res1);\n  await (0,_involapi_js__WEBPACK_IMPORTED_MODULE_1__.addReserve)(res2);\n};\n\nconst refreshReservesList = async (id) => {\n  const reserves = JSON.parse(await (0,_involapi_js__WEBPACK_IMPORTED_MODULE_1__.getReserves)(id));\n  const refreshedReservesList = getReservesList(reserves);\n\n  const reservesList = document.getElementById('popupres-reservelist');\n  reservesList.innerHTML = refreshedReservesList;\n};\n\nconst validReserve = (form, formData) => {\n  const dateStart = new Date(formData.get('date_start'));\n  const dateEnd = new Date(formData.get('date_end'));\n\n  const { elements: { date_start: start } } = form;\n\n  if (dateStart <= dateEnd) {\n    start.setCustomValidity('');\n  } else {\n    start.setCustomValidity('Start date can\\'t be after end date.');\n  }\n\n  return form.checkValidity();\n};\n\nconst addNewReserve = async (e) => {\n  e.preventDefault();\n  const { target: { dataset: { id } }, target: form } = e;\n\n  const formData = new FormData(form);\n\n  if (validReserve(form, formData)) {\n    const newReserve = createReserve(id, formData);\n\n    const result = await (0,_involapi_js__WEBPACK_IMPORTED_MODULE_1__.addReserve)(newReserve);\n\n    if (result) {\n      refreshReservesList(id);\n      form.reset();\n    }\n  } else {\n    form.reportValidity();\n  }\n};\n\nconst linkAddNewReserve = () => {\n  const formNewReserve = document.forms.newreserve;\n\n  formNewReserve.addEventListener('submit', addNewReserve);\n};\n\nconst showReserve = async (id) => {\n  const pokemonDetails = JSON.parse(await (0,_pokeapi_js__WEBPACK_IMPORTED_MODULE_0__[\"default\"])(id));\n  const pokemonDescription = JSON.parse(await (0,_pokeapi_js__WEBPACK_IMPORTED_MODULE_0__.getDescription)(id));\n  const reserves = JSON.parse(await (0,_involapi_js__WEBPACK_IMPORTED_MODULE_1__.getReserves)(id));\n\n  const { descriptions } = pokemonDescription;\n  const englishDescription = descriptions.find((description) => description.language.name === 'en');\n  const { description } = englishDescription;\n  const {\n    name, height, weight, base_experience: exp, moves: { length: moves },\n  } = pokemonDetails;\n  const { sprites: { other: { dream_world: { front_default: image } } } } = pokemonDetails;\n\n  const values = [Number(id), name, height, weight, exp, moves, image, description, reserves];\n\n  const reservePokemon = createPokemon(values);\n\n  return reservePokemon;\n};\n\nconst getReserveTemplate = (pokemon) => {\n  const reserves = getReservesList(pokemon.reserves);\n\n  const template = `\n    <div class=\"popupres-window\">\n      <div class=\"popupres-header\">\n        <h2>${pokemon.id} - ${pokemon.name}</h2>\n        <p id=\"xpopupres\" class=\"x-btn\">X</p>\n      </div>\n      <div class=\"popupres-img\">\n        <img class=\"popupres-image\" src=\"${pokemon.image}\" alt=\"pokemon\" />\n        <p class=\"popupres-description\">${pokemon.description}</p>\n      </div>\n      <div class=\"popupres-info\">\n        <p><b>Height</b><span>${pokemon.height}</span></p>\n        <p><b>Weight</b><span>${pokemon.weight}</span></p>\n        <p><b>Base Experience</b><span>${pokemon.exp}</span></p>\n        <p><b>Moves</b><span>${pokemon.moves}</span></p>\n      </div>\n      <div class=\"popupres-reserves\">\n        <h3>Reservations (#)</h3>\n        <ul id=\"popupres-reservelist\">\n          ${reserves}\n        </ul>\n      </div>\n      <div class=\"popupres-newreserve\">\n        <h3>Add a reservation</h3>\n        <form id=\"newreserve\" data-id=\"${pokemon.id}\" novalidate>\n          <ul>\n            <li>\n              <input type=\"text\" name=\"username\" placeholder=\"Your name\" required>\n            </li>\n            <li>\n              <input type=\"text\" name=\"date_start\" placeholder=\"Start date\" required\n                onblur=\"(this.type='text')\">\n            </li>\n            <li>\n              <input type=\"text\" name=\"date_end\" placeholder=\"End date\" required\n                onblur=\"(this.type='text')\">\n            </li>\n            <li>\n              <button type=\"submit\">Reserve</button>\n            </li>\n          </ul>\n        </form>\n      </div>\n    </div>`;\n\n  return template;\n};\n\nconst displayReserve = (pokemon) => {\n  const body = document.querySelector('body');\n  const pokemonPopupReserve = getReserveTemplate(pokemon);\n  const div = document.createElement('div');\n  div.classList.add('popupres');\n  div.classList.add('show');\n  div.id = 'popupres';\n\n  div.innerHTML = pokemonPopupReserve;\n\n  body.appendChild(div);\n\n  return pokemon;\n};\n\nconst setInputsAsDate = () => {\n  const setDate = (e) => {\n    e.target.type = 'date';\n    const today = new Date();\n    const minDate = today.toJSON().split('T')[0];\n\n    e.target.min = minDate;\n    e.target.showPicker();\n  };\n\n  const startDate = document.forms.newreserve.elements.date_start;\n  const endDate = document.forms.newreserve.elements.date_end;\n\n  startDate.addEventListener('focus', setDate);\n  endDate.addEventListener('focus', setDate);\n};\n\nconst linkCloseReserveBtn = () => {\n  const closeReserveBtn = document.getElementById('xpopupres');\n\n  closeReserveBtn.addEventListener('click', (e) => {\n    e.preventDefault();\n    const { target: { parentElement: { parentElement: { parentElement: popupres } } } } = e;\n    const { parentNode: body } = popupres;\n\n    body.removeChild(popupres);\n  });\n};\n\nconst linkReserveBtns = () => {\n  const reserveBtns = document.querySelectorAll('.reservebtn');\n\n  reserveBtns.forEach((reserveBtn) => {\n    reserveBtn.addEventListener('click', (e) => {\n      e.preventDefault();\n      const { currentTarget: { dataset: { id } } } = e;\n\n      showReserve(id)\n        .then((popedPokemnon) => displayReserve(popedPokemnon))\n        .then(() => linkCloseReserveBtn())\n        .then(() => setInputsAsDate())\n        .then(() => linkAddNewReserve());\n    });\n  });\n};\n\n\n\n\n//# sourceURL=webpack://mv-pokeapp/./src/modules/displayreserve.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"addFakeReserves\": () => (/* binding */ addFakeReserves),\n/* harmony export */   \"default\": () => (/* binding */ linkReserveBtns)\n/* harmony export */ });\n/* harmony import */ var _pokeapi_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./pokeapi.js */ \"./src/modules/pokeapi.js\");\n/* harmony import */ var _involapi_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./involapi.js */ \"./src/modules/involapi.js\");\n\n\n\n// Global reservePokemon object with pokemon details for the Reservations popup.\n\nconst createPokemon = (values) => {\n  const attString = 'id, name, height, weight, exp, moves, image, description, reserves';\n  const attributes = attString.replace(/\\s/gi, '').split(',');\n\n  const customPokemon = {};\n\n  attributes.forEach((key, index) => {\n    customPokemon[key] = values[index];\n  });\n\n  return customPokemon;\n};\n\nconst createReserve = (id, formData) => {\n  const user = formData.get('username');\n  const dateStart = formData.get('date_start');\n  const dateEnd = formData.get('date_end');\n\n  const customReserve = {\n    item_id: id,\n    username: user,\n    date_start: dateStart,\n    date_end: dateEnd,\n  };\n\n  return customReserve;\n};\n\nconst countReserves = () => {\n  const countAllCurrentReserves = document.querySelectorAll('.popupres-reserveitem');\n\n  return countAllCurrentReserves.length;\n};\n\nconst setCountReserves = (count) => {\n  const reservesCount = document.getElementById('reservescount');\n\n  if (count > 0) {\n    reservesCount.innerText = count;\n  } else {\n    reservesCount.parentElement.innerHTML = '<h3>No Reservations</h3>';\n  }\n};\n\nconst getReservesList = (reserves) => {\n  let allReserves = '';\n\n  reserves.forEach((reserve) => {\n    const reserveTemplate = `\n            <li class=\"popupres-reserveitem\">\n              <span class=\"reserveitem-date\">${reserve.date_start.replace(/-/gi, '/')}</span>\n              <span class=\"reserveitem-date\">${reserve.date_end.replace(/-/gi, '/')}</span>\n              <span class=\"reserveitem-username\">${reserve.username}</span>\n            </li>`;\n    allReserves += reserveTemplate;\n  });\n\n  return allReserves;\n};\n\nconst addFakeReserves = async (id) => {\n  const users = ['pokeBOT', 'pokeApp', 'pokeDEX'];\n  const startDates = ['2023-01-12', '2023-01-13', '2023-01-15'];\n  const endDates = ['2023-01-18', '2023-01-17', '2023-01-19'];\n\n  const res0 = {\n    item_id: id,\n    username: users[0],\n    date_start: startDates[0],\n    date_end: endDates[0],\n  };\n\n  const res1 = {\n    item_id: id,\n    username: users[1],\n    date_start: startDates[1],\n    date_end: endDates[1],\n  };\n\n  const res2 = {\n    item_id: id,\n    username: users[2],\n    date_start: startDates[2],\n    date_end: endDates[2],\n  };\n\n  await (0,_involapi_js__WEBPACK_IMPORTED_MODULE_1__.addReserve)(res0);\n  await (0,_involapi_js__WEBPACK_IMPORTED_MODULE_1__.addReserve)(res1);\n  await (0,_involapi_js__WEBPACK_IMPORTED_MODULE_1__.addReserve)(res2);\n};\n\nconst refreshReservesList = async (id) => {\n  const reserves = JSON.parse(await (0,_involapi_js__WEBPACK_IMPORTED_MODULE_1__.getReserves)(id));\n  const refreshedReservesList = getReservesList(reserves);\n\n  const reservesList = document.getElementById('popupres-reservelist');\n  reservesList.innerHTML = refreshedReservesList;\n  setCountReserves(countReserves());\n};\n\nconst validReserve = (form, formData) => {\n  const dateStart = new Date(formData.get('date_start'));\n  const dateEnd = new Date(formData.get('date_end'));\n\n  const { elements: { date_start: start } } = form;\n\n  if (dateStart <= dateEnd) {\n    start.setCustomValidity('');\n  } else {\n    start.setCustomValidity('Start date can\\'t be after end date.');\n  }\n\n  return form.checkValidity();\n};\n\nconst addNewReserve = async (e) => {\n  e.preventDefault();\n  const { target: { dataset: { id } }, target: form } = e;\n\n  const formData = new FormData(form);\n\n  if (validReserve(form, formData)) {\n    const newReserve = createReserve(id, formData);\n\n    const result = await (0,_involapi_js__WEBPACK_IMPORTED_MODULE_1__.addReserve)(newReserve);\n\n    if (result) {\n      form.reset();\n      return refreshReservesList(id);\n    }\n  } else {\n    form.reportValidity();\n  }\n\n  return false;\n};\n\nconst linkAddNewReserve = () => {\n  const formNewReserve = document.forms.newreserve;\n\n  formNewReserve.addEventListener('submit', addNewReserve);\n};\n\nconst showReserve = async (id) => {\n  const pokemonDetails = JSON.parse(await (0,_pokeapi_js__WEBPACK_IMPORTED_MODULE_0__[\"default\"])(id));\n  const pokemonDescription = JSON.parse(await (0,_pokeapi_js__WEBPACK_IMPORTED_MODULE_0__.getDescription)(id));\n  const reserves = JSON.parse(await (0,_involapi_js__WEBPACK_IMPORTED_MODULE_1__.getReserves)(id));\n\n  const { descriptions } = pokemonDescription;\n  const englishDescription = descriptions.find((description) => description.language.name === 'en');\n  const { description } = englishDescription;\n  const {\n    name, height, weight, base_experience: exp, moves: { length: moves },\n  } = pokemonDetails;\n  const { sprites: { other: { dream_world: { front_default: image } } } } = pokemonDetails;\n\n  const values = [Number(id), name, height, weight, exp, moves, image, description, reserves];\n\n  const reservePokemon = createPokemon(values);\n\n  return reservePokemon;\n};\n\nconst getReserveTemplate = (pokemon) => {\n  const reserves = getReservesList(pokemon.reserves);\n\n  const template = `\n    <div class=\"popupres-window\">\n      <div class=\"popupres-header\">\n        <h2>${pokemon.id} - ${pokemon.name}</h2>\n        <p id=\"xpopupres\" class=\"x-btn\">X</p>\n      </div>\n      <div class=\"popupres-img\">\n        <img class=\"popupres-image\" src=\"${pokemon.image}\" alt=\"pokemon\" />\n        <p class=\"popupres-description\">${pokemon.description}</p>\n      </div>\n      <div class=\"popupres-info\">\n        <p><b>Height</b><span>${pokemon.height}</span></p>\n        <p><b>Weight</b><span>${pokemon.weight}</span></p>\n        <p><b>Base Experience</b><span>${pokemon.exp}</span></p>\n        <p><b>Moves</b><span>${pokemon.moves}</span></p>\n      </div>\n      <div class=\"popupres-reserves\">\n        <h3>Reservations (<span id=\"reservescount\"></span>)</h3>\n        <ul id=\"popupres-reservelist\">\n          ${reserves}\n        </ul>\n      </div>\n      <div class=\"popupres-newreserve\">\n        <h3>Add a reservation</h3>\n        <form id=\"newreserve\" data-id=\"${pokemon.id}\" novalidate>\n          <ul>\n            <li>\n              <input type=\"text\" name=\"username\" placeholder=\"Your name\" required>\n            </li>\n            <li>\n              <input type=\"text\" name=\"date_start\" placeholder=\"Start date\" required\n                onblur=\"(this.type='text')\">\n            </li>\n            <li>\n              <input type=\"text\" name=\"date_end\" placeholder=\"End date\" required\n                onblur=\"(this.type='text')\">\n            </li>\n            <li>\n              <button type=\"submit\">Reserve</button>\n            </li>\n          </ul>\n        </form>\n      </div>\n    </div>`;\n\n  return template;\n};\n\nconst displayReserve = (pokemon) => {\n  const body = document.querySelector('body');\n  const pokemonPopupReserve = getReserveTemplate(pokemon);\n  const div = document.createElement('div');\n  div.classList.add('popupres');\n  div.classList.add('show');\n  div.id = 'popupres';\n\n  div.innerHTML = pokemonPopupReserve;\n\n  body.appendChild(div);\n\n  return pokemon;\n};\n\nconst setInputsAsDate = () => {\n  const setDate = (e) => {\n    e.target.type = 'date';\n    const today = new Date();\n    const minDate = today.toJSON().split('T')[0];\n\n    e.target.min = minDate;\n    e.target.showPicker();\n  };\n\n  const startDate = document.forms.newreserve.elements.date_start;\n  const endDate = document.forms.newreserve.elements.date_end;\n\n  startDate.addEventListener('focus', setDate);\n  endDate.addEventListener('focus', setDate);\n};\n\nconst linkCloseReserveBtn = () => {\n  const closeReserveBtn = document.getElementById('xpopupres');\n\n  closeReserveBtn.addEventListener('click', (e) => {\n    e.preventDefault();\n    const { target: { parentElement: { parentElement: { parentElement: popupres } } } } = e;\n    const { parentNode: body } = popupres;\n\n    body.removeChild(popupres);\n  });\n};\n\nconst linkReserveBtns = () => {\n  const reserveBtns = document.querySelectorAll('.reservebtn');\n\n  reserveBtns.forEach((reserveBtn) => {\n    reserveBtn.addEventListener('click', (e) => {\n      e.preventDefault();\n      const { currentTarget: { dataset: { id } } } = e;\n\n      showReserve(id)\n        .then((popedPokemnon) => displayReserve(popedPokemnon))\n        .then(() => linkCloseReserveBtn())\n        .then(() => setInputsAsDate())\n        .then(() => linkAddNewReserve())\n        .then(() => setCountReserves(countReserves()));\n    });\n  });\n};\n\n\n\n\n//# sourceURL=webpack://mv-pokeapp/./src/modules/displayreserve.js?");
 
 /***/ }),
 
@@ -256,7 +256,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \****************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("module.exports = __webpack_require__.p + \"assets/f9a25ddda09ee2e927b0.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/bug.svg?");
+eval("module.exports = __webpack_require__.p + \"assets/bug.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/bug.svg?");
 
 /***/ }),
 
@@ -266,7 +266,7 @@ eval("module.exports = __webpack_require__.p + \"assets/f9a25ddda09ee2e927b0.svg
   \*****************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("module.exports = __webpack_require__.p + \"assets/b81991e75f526826a49d.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/dark.svg?");
+eval("module.exports = __webpack_require__.p + \"assets/dark.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/dark.svg?");
 
 /***/ }),
 
@@ -276,7 +276,7 @@ eval("module.exports = __webpack_require__.p + \"assets/b81991e75f526826a49d.svg
   \*******************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("module.exports = __webpack_require__.p + \"assets/7be68bdd50a8726d3110.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/dragon.svg?");
+eval("module.exports = __webpack_require__.p + \"assets/dragon.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/dragon.svg?");
 
 /***/ }),
 
@@ -286,7 +286,7 @@ eval("module.exports = __webpack_require__.p + \"assets/7be68bdd50a8726d3110.svg
   \*********************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("module.exports = __webpack_require__.p + \"assets/72daa869a6821c8713e4.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/electric.svg?");
+eval("module.exports = __webpack_require__.p + \"assets/electric.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/electric.svg?");
 
 /***/ }),
 
@@ -296,7 +296,7 @@ eval("module.exports = __webpack_require__.p + \"assets/72daa869a6821c8713e4.svg
   \******************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("module.exports = __webpack_require__.p + \"assets/d7b29a8bf19ba9aecaf7.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/fairy.svg?");
+eval("module.exports = __webpack_require__.p + \"assets/fairy.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/fairy.svg?");
 
 /***/ }),
 
@@ -306,7 +306,7 @@ eval("module.exports = __webpack_require__.p + \"assets/d7b29a8bf19ba9aecaf7.svg
   \*********************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("module.exports = __webpack_require__.p + \"assets/372b8c5d52010c05c12c.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/fighting.svg?");
+eval("module.exports = __webpack_require__.p + \"assets/fighting.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/fighting.svg?");
 
 /***/ }),
 
@@ -316,7 +316,7 @@ eval("module.exports = __webpack_require__.p + \"assets/372b8c5d52010c05c12c.svg
   \*****************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("module.exports = __webpack_require__.p + \"assets/5c58c6e24c5288994807.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/fire.svg?");
+eval("module.exports = __webpack_require__.p + \"assets/fire.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/fire.svg?");
 
 /***/ }),
 
@@ -326,7 +326,7 @@ eval("module.exports = __webpack_require__.p + \"assets/5c58c6e24c5288994807.svg
   \*******************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("module.exports = __webpack_require__.p + \"assets/5c90d06778452df3ce81.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/flying.svg?");
+eval("module.exports = __webpack_require__.p + \"assets/flying.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/flying.svg?");
 
 /***/ }),
 
@@ -336,7 +336,7 @@ eval("module.exports = __webpack_require__.p + \"assets/5c90d06778452df3ce81.svg
   \******************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("module.exports = __webpack_require__.p + \"assets/8c97c1068166fa34722b.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/ghost.svg?");
+eval("module.exports = __webpack_require__.p + \"assets/ghost.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/ghost.svg?");
 
 /***/ }),
 
@@ -346,7 +346,7 @@ eval("module.exports = __webpack_require__.p + \"assets/8c97c1068166fa34722b.svg
   \******************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("module.exports = __webpack_require__.p + \"assets/580b538ada83319ec191.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/grass.svg?");
+eval("module.exports = __webpack_require__.p + \"assets/grass.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/grass.svg?");
 
 /***/ }),
 
@@ -356,7 +356,7 @@ eval("module.exports = __webpack_require__.p + \"assets/580b538ada83319ec191.svg
   \*******************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("module.exports = __webpack_require__.p + \"assets/457a08fd1f225c575dd0.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/ground.svg?");
+eval("module.exports = __webpack_require__.p + \"assets/ground.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/ground.svg?");
 
 /***/ }),
 
@@ -366,7 +366,7 @@ eval("module.exports = __webpack_require__.p + \"assets/457a08fd1f225c575dd0.svg
   \****************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("module.exports = __webpack_require__.p + \"assets/bd8d1e5321aa12fc1126.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/ice.svg?");
+eval("module.exports = __webpack_require__.p + \"assets/ice.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/ice.svg?");
 
 /***/ }),
 
@@ -376,7 +376,7 @@ eval("module.exports = __webpack_require__.p + \"assets/bd8d1e5321aa12fc1126.svg
   \*******************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("module.exports = __webpack_require__.p + \"assets/2ba66dd583ebf70eb414.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/normal.svg?");
+eval("module.exports = __webpack_require__.p + \"assets/normal.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/normal.svg?");
 
 /***/ }),
 
@@ -386,7 +386,7 @@ eval("module.exports = __webpack_require__.p + \"assets/2ba66dd583ebf70eb414.svg
   \*****************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("module.exports = __webpack_require__.p + \"assets/f2e774b586a35f15ee77.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/oval.svg?");
+eval("module.exports = __webpack_require__.p + \"assets/oval.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/oval.svg?");
 
 /***/ }),
 
@@ -396,7 +396,7 @@ eval("module.exports = __webpack_require__.p + \"assets/f2e774b586a35f15ee77.svg
   \*******************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("module.exports = __webpack_require__.p + \"assets/239752ec99a6f7c0f513.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/poison.svg?");
+eval("module.exports = __webpack_require__.p + \"assets/poison.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/poison.svg?");
 
 /***/ }),
 
@@ -406,7 +406,7 @@ eval("module.exports = __webpack_require__.p + \"assets/239752ec99a6f7c0f513.svg
   \***********************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("module.exports = __webpack_require__.p + \"assets/3349d1c0dbda5babf47e.png\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/pokemonImg.png?");
+eval("module.exports = __webpack_require__.p + \"assets/pokemonImg.png\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/pokemonImg.png?");
 
 /***/ }),
 
@@ -416,7 +416,7 @@ eval("module.exports = __webpack_require__.p + \"assets/3349d1c0dbda5babf47e.png
   \********************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("module.exports = __webpack_require__.p + \"assets/b5b7f4e113279381acaf.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/psychic.svg?");
+eval("module.exports = __webpack_require__.p + \"assets/psychic.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/psychic.svg?");
 
 /***/ }),
 
@@ -426,7 +426,7 @@ eval("module.exports = __webpack_require__.p + \"assets/b5b7f4e113279381acaf.svg
   \*****************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("module.exports = __webpack_require__.p + \"assets/eea1eac796891a211373.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/rock.svg?");
+eval("module.exports = __webpack_require__.p + \"assets/rock.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/rock.svg?");
 
 /***/ }),
 
@@ -436,7 +436,7 @@ eval("module.exports = __webpack_require__.p + \"assets/eea1eac796891a211373.svg
   \******************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("module.exports = __webpack_require__.p + \"assets/e8cb36b995958486ae2e.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/steel.svg?");
+eval("module.exports = __webpack_require__.p + \"assets/steel.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/steel.svg?");
 
 /***/ }),
 
@@ -446,7 +446,7 @@ eval("module.exports = __webpack_require__.p + \"assets/e8cb36b995958486ae2e.svg
   \******************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("module.exports = __webpack_require__.p + \"assets/5df17759051a2e1c0f40.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/water.svg?");
+eval("module.exports = __webpack_require__.p + \"assets/water.svg\";\n\n//# sourceURL=webpack://mv-pokeapp/./src/assets/water.svg?");
 
 /***/ })
 
