@@ -1,5 +1,6 @@
 import getPokemon, { getDescription } from './pokeapi.js';
 import { addReserve, getReserves } from './involapi.js';
+import reservesCounter from './reservesCounter.js';
 
 // Global reservePokemon object with pokemon details for the Reservations popup.
 
@@ -29,12 +30,6 @@ const createReserve = (id, formData) => {
   };
 
   return customReserve;
-};
-
-const countReserves = () => {
-  const countAllCurrentReserves = document.querySelectorAll('.popupres-reserveitem');
-
-  return countAllCurrentReserves.length;
 };
 
 const setCountReserves = (count) => {
@@ -100,7 +95,7 @@ const refreshReservesList = async (id) => {
 
   const reservesList = document.getElementById('popupres-reservelist');
   reservesList.innerHTML = refreshedReservesList;
-  setCountReserves(countReserves());
+  setCountReserves(reservesCounter());
 };
 
 const validReserve = (form, formData) => {
@@ -274,7 +269,7 @@ const linkReserveBtns = () => {
         .then(() => linkCloseReserveBtn())
         .then(() => setInputsAsDate())
         .then(() => linkAddNewReserve())
-        .then(() => setCountReserves(countReserves()));
+        .then(() => setCountReserves(reservesCounter()));
     });
   });
 };
