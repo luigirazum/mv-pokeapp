@@ -41,7 +41,7 @@ h1 {
   text-align: center;
   color: orange;
   background: #f6ff76;
-  margin: 25px auto;
+  margin: 37px auto;
   width: 481px;
   border: 3px solid #9191f1;
   padding: 7px 78px;
@@ -49,9 +49,8 @@ h1 {
 }
 
 header {
-  max-width: 85%;
-  margin-inline: auto;
-  margin-block: 1em;
+  background: #63b0f3;
+  padding: 17px 41px;
 }
 
 nav {
@@ -70,9 +69,9 @@ nav span {
 }
 
 a {
-  display: inline-block;
+  display: flex;
   text-decoration: none;
-  color: inherit;
+  color: rgb(216, 7, 7);
   font-size: 1.2rem;
   font-weight: 500;
   padding: 0.5em 0.8em;
@@ -83,7 +82,7 @@ a {
 }
 
 a:hover {
-  color: rgb(216, 7, 7);
+  color: inherit;
 }
 
 .logo {
@@ -94,7 +93,6 @@ a:hover {
 .logo img {
   height: 100%;
   padding: 0.05em;
-  filter: opacity(0.8) grayscale(1);
 }
 
 .logo:hover img {
@@ -160,9 +158,24 @@ a:hover {
   width: 63%;
   height: 76%;
   margin: 6% 0% 0% 19%;
+  animation: jump 6s ease-in-out infinite;
 }
 
-#image :hover {
+@keyframes jump {
+  0% {
+    transform: translate(-1%, -2%) scale(1);
+  }
+
+  50% {
+    transform: translate(-2%, -3%) scale(1.1);
+  }
+
+  100% {
+    transform: translate(-1%, -2%) scale(1);
+  }
+}
+
+.pokecards :hover {
   animation: 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
 }
 
@@ -195,6 +208,7 @@ a:hover {
   width: 124px;
   height: 9px;
   border-radius: 59%;
+  animation: moving 4.2s ease-in-out infinite;
 }
 
 ul {
@@ -236,11 +250,13 @@ button {
 .btnDescription {
   margin: 10% 0% 10% 0%;
   background: #49da5e;
+  border-radius: 9px;
 }
 
 #btnReserve {
   margin: 0 0 11px 0;
   background: #49b6da;
+  border-radius: 9px;
 }
 
 #id {
@@ -262,17 +278,29 @@ button {
   font-family: Rubik, sans-serif;
   color: aliceblue;
   font-size: 1.3rem;
+  text-transform: capitalize;
 }
 
 #types {
   font-family: Rubik, sans-serif;
   color: aliceblue;
   font-size: 1.3rem;
+  display: flex;
+  gap: 5px;
 }
 
 .footerImg {
   display: flex;
-  gap: 38px;
-  margin: 10px 0 10px 0;
+  gap: 88px;
+  margin: 9px 0 6px 0;
   align-items: center;
+}
+
+.habilityIcon {
+  width: 30px;
+  height: 30px;
+}
+
+.habilityIconImg {
+  width: 100%;
 }
