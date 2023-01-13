@@ -2,7 +2,7 @@
 * @jest-environment jsdom
 */
 
-import reservesCounter from "../modules/reservesCounter";
+import reservesCounter from '../modules/reservesCounter.js';
 
 const generateListOfReserves = (qty) => {
   document.body.innerHTML = '';
