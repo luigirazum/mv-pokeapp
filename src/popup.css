@@ -107,6 +107,7 @@
   width: 328px;
   height: 416px;
   margin: 0 0 0 53px;
+  position: relative;
 }
 
 .popupres-img {
@@ -123,17 +124,18 @@
 
 .popupres-image {
   height: 90%;
-  padding: 1em 2em;
+  padding: 2em;
   align-self: center;
-  justify-self: center;
   width: 100%;
 }
 
 .popupres-description {
+  position: relative;
   font-weight: 500;
   font-size: 1.1rem;
   padding: 0.5em;
   quotes: "“" "”" "‘" "’";
+  bottom: 0.75em;
 }
 
 .popupres-description::before {
@@ -281,6 +283,20 @@
   gap: 5px;
 }
 
+.popupres-newreserve ul {
+  margin: 0 0 0 0;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+#newreserve {
+  margin: 0.5em auto;
+}
+
+#newreserve ul {
+  gap: 0.6em;
+}
+
 .popup-comment-input,
 #newreserve input {
   padding: 10px;
@@ -331,15 +347,16 @@
 }
 
 #popupres-reservelist {
-  padding: 1em 0;
   height: auto;
   flex-direction: column;
   gap: 0;
+  margin: 0.5em auto;
 }
 
 .popupres-reserveitem {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .reserveitem-date,
@@ -368,10 +385,4 @@
 
 .popupres-newreserve {
   text-align: center;
-}
-
-.popupres-newreserve ul {
-  margin: 0 0 0 0;
-  flex-direction: column;
-  gap: 0.5em;
 }
