@@ -270,13 +270,15 @@
 
 /* New comment */
 
-.popup-new-comment {
+.popup-new-comment,
+.popupres-newreserve {
   display: flex;
   flex-direction: column;
   gap: 5px;
 }
 
-.popup-comment-input {
+.popup-comment-input,
+#newreserve input {
   padding: 10px;
   font-size: medium;
   border: 0;
@@ -284,11 +286,17 @@
   border-bottom: 1px solid gainsboro;
 }
 
-.popup-comment-input::placeholder {
+#newreserve input {
+  width: 12rem;
+}
+
+.popup-comment-input::placeholder,
+#newreserve input {
   color: rgb(170, 170, 170);
 }
 
-.popup-comment-input:focus {
+.popup-comment-input:focus,
+#newreserve input:focus {
   border-bottom: 1px solid rgb(141, 63, 231);
 }
 
@@ -296,7 +304,8 @@
   resize: none;
 }
 
-.popup-comment-btn {
+.popup-comment-btn,
+#newreserve button {
   padding: 10px 15px;
   background-color: rgb(141, 63, 231);
   color: white;
@@ -360,4 +369,13 @@
 
 .reserveitem-date:nth-child(2)::after {
   content: "by";
+}
+
+.popupres-newreserve {
+  text-align: center;
+}
+
+.popupres-newreserve ul {
+  flex-direction: column;
+  gap: 0.5em;
 }
