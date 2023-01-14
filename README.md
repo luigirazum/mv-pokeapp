@@ -38,7 +38,9 @@
 *[PokeApp]* a Single Page WebApp (API based) that shows information about your favorite Pokemon, you can Like a pokemon see its basic characteristics, it has a Description section where you can add a comment or see comments that other users have done, also you can Reserve your favorite Pokémon for your next tournament.
 <div align="center">
 
-  <img src="./src/assets/images/pokeapp_wireframe.png" alt="Screenshoot" width="550"  height="auto" />
+  <img src="./src/assets/screenshots/pokeapp_home.png" alt="HomePage" width="750"  height="auto" />
+  <img src="./src/assets/screenshots/pokeapp_comments.png" alt="Comments Popup" width="330"  height="auto" />
+  <img src="./src/assets/screenshots/pokeapp_reserves.png" alt="Reserves Popup" width="350"  height="auto" />
   <br/>
 
 </div>
