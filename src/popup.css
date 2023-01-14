@@ -1,0 +1,388 @@
+.popup,
+.popupres {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  top: 0;
+  padding: 30px 10px;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.349);
+  backdrop-filter: blur(3px);
+  overflow-y: auto;
+  display: none;
+}
+
+/* scrollbar customization */
+.popup::-webkit-scrollbar,
+.popupres::-webkit-scrollbar {
+  width: 7px;
+}
+
+.popup::-webkit-scrollbar-track,
+.popupres::-webkit-scrollbar-track {
+  background-color: antiquewhite;
+  box-shadow: inset 0 0 5px rgb(151, 151, 151);
+}
+
+.popup::-webkit-scrollbar-thumb,
+.popupres::-webkit-scrollbar-thumb {
+  background: orangered;
+  border-radius: 15px;
+}
+
+.popup::-webkit-scrollbar-thumb:hover,
+.popupres::-webkit-scrollbar-thumb:hover {
+  background: #b30000;
+}
+
+/* *********** */
+
+.popup-window,
+.popupres-window {
+  background: linear-gradient(180deg, rgb(225 212 50) 18%, rgb(255 255 255) 45%, hsl(148deg 98% 73%) 95%);
+  z-index: 10;
+  max-width: 500px;
+  margin: auto;
+  margin-bottom: 20px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 28px;
+}
+
+.popupres-window {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.popup-header,
+.popupres-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  row-gap: 1em;
+}
+
+.popup-header-text,
+.popupres-header h2 {
+  color: orangered;
+  margin: -5px 0 11px 0;
+  text-transform: capitalize;
+  font-size: 2rem;
+}
+
+.popupres-header h2 {
+  padding: 0.2em 0 0.2em 0;
+}
+
+.x-btn {
+  color: aliceblue;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+#xpopupres {
+  border-radius: 50%;
+  border: 2px solid #b30000;
+  padding: 0.2em 0.35em;
+  color: #b30000;
+}
+
+#xpopupres:hover {
+  border-color: #3a3a3a;
+  background-color: #7c7c7c;
+  color: #fff;
+}
+
+.div-container {
+  padding: 16px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, rgb(255 0 0) 0%, rgb(255 5 5) 49%, rgb(0 0 0) 42%, rgb(0 0 0) 53%, rgb(255 255 255) 53%, rgb(255 255 255) 100%);
+  width: 100%;
+  margin-bottom: 20px;
+  border: 1px solid #000000a6;
+}
+
+.popup-image {
+  width: 328px;
+  height: 416px;
+  margin: 0 0 0 53px;
+  position: relative;
+}
+
+.popupres-img {
+  height: 58vh;
+  text-align: center;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, rgb(255 0 0) 0%, rgb(255 5 5) 49%, rgb(0 0 0) 42%, rgb(0 0 0) 53%, rgb(255 255 255) 53%, rgb(255 255 255) 100%);
+  border-radius: 50%;
+  width: 100%;
+  border: 1px solid black;
+}
+
+.popupres-image {
+  height: 90%;
+  padding: 2em;
+  align-self: center;
+  width: 100%;
+}
+
+.popupres-description {
+  position: relative;
+  font-weight: 500;
+  font-size: 1.1rem;
+  padding: 0.5em;
+  quotes: "“" "”" "‘" "’";
+  bottom: 0.75em;
+}
+
+.popupres-description::before {
+  content: open-quote;
+}
+
+.popupres-description::after {
+  content: close-quote;
+}
+
+.display,
+.show {
+  display: block;
+}
+
+.d-grid-2col {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.popup-image-detail {
+  text-align: center;
+}
+
+.popupres-info {
+  padding: 1em;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+  font-weight: 600;
+}
+
+.popupres-info p,
+.popupres-info span {
+  border: 2px solid orangered;
+  border-radius: 100px;
+}
+
+.popupres-info p {
+  width: 45%;
+  background-color: rgba(255, 69, 0, 0.7);
+  color: #b30000;
+  display: flex;
+  align-items: center;
+}
+
+.popupres-info b {
+  padding: 0.5em 0 0.5em 0.8em;
+}
+
+.popupres-info span {
+  display: inline-block;
+  width: 4.5rem;
+  margin-left: auto;
+  height: 100%;
+  text-align: center;
+  background: orangered;
+  color: #fff;
+  padding: 0.5em 0;
+}
+
+.popup-detail-item {
+  color: #ff0558;
+  font-size: larger;
+  margin: 8px 0 -1px 7px;
+}
+
+@media screen and (min-width: 400px) {
+  .d-grid-2col {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/*  comments list  */
+
+.popup-comment-record {
+  max-height: 220px;
+  overflow-y: scroll;
+}
+
+/* comment list scrollbar customization */
+
+.popup-comment-record::-webkit-scrollbar {
+  width: 5px;
+}
+
+.popup-comment-record::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px rgb(151, 151, 151);
+  border-radius: 10px;
+}
+
+.popup-comment-record::-webkit-scrollbar-thumb {
+  background: rgb(141, 63, 231);
+  border-radius: 15px;
+}
+
+.popup-comment-record::-webkit-scrollbar-thumb:hover {
+  background: rgb(179, 153, 211);
+}
+
+.popup-comment-header {
+  color: rgb(141, 63, 231);
+  margin: 15px 0 14px 0;
+  text-align: center;
+}
+
+.popup-comment-list {
+  list-style-type: none;
+  padding: 0 5px;
+  display: block;
+}
+
+.popup-comment-item {
+  background-color: rgba(196, 159, 201, 0.144);
+  margin: 5px 0;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: small;
+}
+
+.popup-comment-author {
+  font-weight: 600;
+  font-size: small;
+}
+
+.popup-comment-text {
+  margin: 5px 0;
+  color: rgb(80, 80, 80);
+  font-size: small;
+}
+
+.popup-comment-date {
+  margin: 5px 0;
+  color: rgb(141, 63, 231);
+  font-size: small;
+}
+
+/* New comment */
+
+.popup-new-comment,
+.popupres-newreserve {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.popupres-newreserve ul {
+  margin: 0 0 0 0;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+#newreserve {
+  margin: 0.5em auto;
+}
+
+#newreserve ul {
+  gap: 0.6em;
+}
+
+.popup-comment-input,
+#newreserve input {
+  padding: 10px;
+  font-size: medium;
+  border: 0;
+  outline: 0;
+  border-bottom: 1px solid gainsboro;
+  border-radius: 15px;
+}
+
+#newreserve input {
+  width: 12rem;
+}
+
+.popup-comment-input::placeholder,
+#newreserve input {
+  color: rgb(170, 170, 170);
+}
+
+.popup-comment-input:focus,
+#newreserve input:focus {
+  border-bottom: 1px solid rgb(141, 63, 231);
+}
+
+.popup-new-comment-text {
+  resize: none;
+}
+
+.popup-comment-btn,
+#newreserve button {
+  padding: 2px 15px;
+  background-color: rgb(141, 63, 231);
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  width: fit-content;
+  align-self: flex-end;
+}
+
+/* Styles for Reservations section */
+.popupres-reserves {
+  padding: 1em 2em;
+  text-align: center;
+}
+
+.popupres-reserves h3 {
+  color: #b30000;
+}
+
+#popupres-reservelist {
+  height: auto;
+  flex-direction: column;
+  gap: 0;
+  margin: 0.5em auto;
+}
+
+.popupres-reserveitem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reserveitem-date,
+.reserveitem-username {
+  font-weight: bold;
+  padding: 0.4em 0 0.4em 0;
+}
+
+.reserveitem-date:nth-child(2) {
+  padding: 0.4em 0.4em 0.4em 0.3em;
+}
+
+.reserveitem-date:nth-child(1)::after,
+.reserveitem-date:nth-child(2)::after {
+  margin-inline: 0.5em 0;
+  font-weight: 400;
+}
+
+.reserveitem-date:nth-child(1)::after {
+  content: "-";
+}
+
+.reserveitem-date:nth-child(2)::after {
+  content: "by";
+}
+
+.popupres-newreserve {
+  text-align: center;
+}
