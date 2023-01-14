@@ -6,7 +6,7 @@
   <br/>
 
   <h3><b>PokeApp</b></h3>
-  <p>This is a Single Page WebApp (API based) that show information about your favorite Pokemon, you can Like, Comment and even Reserve it for your next tournament.</p>
+  <p>This is a Single Page WebApp (API based) that shows information about your favorite Pokemon, you can Like a pokemon see its basic characteristics, it has a Description section where you can add a comment or see comments that other users have done, also you can Reserve your favorite Pokémon for your next tournament.</p>
 
 </div>
 
@@ -35,7 +35,7 @@
 
 # 📖 [PokeApp] <a name="about-project"></a>
 
-*[PokeApp]* a Single Page WebApp (API based) that show information about your favorite Pokemon, you can Like, Comment and even Reserve it for your next tournament.
+*[PokeApp]* a Single Page WebApp (API based) that shows information about your favorite Pokemon, you can Like a pokemon see its basic characteristics, it has a Description section where you can add a comment or see comments that other users have done, also you can Reserve your favorite Pokémon for your next tournament.
 <div align="center">
 
   <img src="./src/assets/images/pokeapp_wireframe.png" alt="Screenshoot" width="550"  height="auto" />
@@ -59,15 +59,15 @@
 
 - *DOM Manipulation for showing the list of available Pokemons.*
 - *Dinamically displays the list of Pokemons at loading.*
-- *Refresh likes when you click the like icon.*
-- *Use of APIs.*
+- *Refresh Likes when you click the like icon on each Pokémon card.*
+- *Use of APIs to retrieve the Pokémons info and add Comments or Reserves.*
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 ## 🚀 Live Demo <a name="live-demo"></a>
 
-- <a href="https://luigirazum.github.io/mv-pokeapp/" target="_blank" rel="noopener noreferrer">PokeApp - Live Demo (coming soon...)</a>
+- <a href="https://luigirazum.github.io/mv-pokeapp/" target="_blank" rel="noopener noreferrer">PokeApp - Live Demo</a>
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -170,7 +170,7 @@ Feel free to check the [issues page](../../issues/).
 
 ## ⭐ Show your support <a name="support"></a>
 
-I really enjoyed making this project, so, if you like it, I appreciate your support giving me a ⭐.
+We really enjoyed making this project, so, if you like it, we appreciate your support giving us a ⭐.
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
